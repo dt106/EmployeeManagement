@@ -1,0 +1,173 @@
+﻿@{ 
+    ViewBag.Title = "Cập nhật nhân viên";
+}
+@model HRM.DTO.Employee
+
+<!-- form cập nhật thông tin -->
+<form class="ml-1" action="@Url.Action("Update", "Employee")" method="post">
+    @Html.AntiForgeryToken()
+
+    <input type="hidden" name="EmployeeId" value="@Model.EmployeeId">
+
+    <div class="form-group">
+        <label for="FullName">Tên: </label>
+        <input type="text" class="form-control" id="Name" name="EmployeeName" value="@Model.EmployeeName" required>
+    </div>
+    <div class="row form-group">
+        <div class="form-group col-3">
+            <label for="Gender">Giới tính: </label>
+            <select class="form-control" id="Gender" name="Gender" required>
+                <option value="0" @(Model.Gender == 0 ? "selected" : "")>Nữ</option>
+                <option value="1" @(Model.Gender == 1 ? "selected" : "")>Nam</option>
+
+            </select>
+        </div>
+        <div class="form-group col-5 row">
+            <label for="Phone">Số điện thoại: </label>
+            <div class="col-lg-5">
+                <input type="text" class="form-control" id="Phone" name="PhoneNumber" value="@Model.PhoneNumber" maxlength="10" pattern="^[0]?[0-9]+$" required>
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label for="Email">Email: </label>
+        <input type="email" class="form-control" id="Email" name="Email" value="@Model.Email" required>
+    </div>
+    <div class="col-12">
+        <div class="form-group row">
+            <div class="col-sm-3 col-form-label">
+                <label for="email-id">Địa chỉ</label>
+            </div>
+            <div class="col-sm-9">
+                <input type="text" id="address" class="form-control" name="Address" value="@Model.Address" required>
+            </div>
+        </div>
+    </div>
+    <div class="col-12">
+        <div class="form-group row">
+            <div class="col-sm-3 col-form-label">
+                <label for="email-id">CCCD</label>
+            </div>
+            <div class="col-sm-9">
+                <input type="text" id="cccd" class="form-control" name="CCCD" value="@Model.CCCD" maxlength="13" required>
+            </div>
+        </div>
+    </div>
+    <div class="col-12">
+        <div class="form-group row">
+            <div class="col-sm-3 col-form-label">
+                <label for="email-id">Ngày sinh</label>
+            </div>
+            <div class="col-sm-9">
+                    <input type="date" id="birthday" class="form-control" name="Birthday" value="@Model.Birthday.ToString("yyyy-MM-dd")" required>
+            </div>
+        </div>
+    </div>
+    <div class="col-12">
+        <div class="form-group row">
+            <div class="col-sm-3 col-form-label">
+                <label for="email-id">Vị trí công việc</label>
+            </div>
+            <div class="col-4">
+                @*<select class="form-control" id="jobtitle" name="JobtitleId" required>
+            <option value="1" @(Model.JobtitleId == 1 ? "selected" : "")>Database Analyst</option>
+            <option value="2" @(Model.JobtitleId == 2 ? "selected" : "")>AI</option>
+            <option value="3" @(Model.JobtitleId == 3 ? "selected" : "")>Android</option>
+            <option value="4" @(Model.JobtitleId == 4 ? "selected" : "")>HR</option>
+            <option value="5" @(Model.JobtitleId == 5 ? "selected" : "")>BackEnd</option>
+            <option value="6" @(Model.JobtitleId == 6 ? "selected" : "")>FontEnd</option>
+            <option value="7" @(Model.JobtitleId == 7 ? "selected" : "")>Điều hành</option>
+        </select>*@
+                <select id="department" name="JobtitleId" class="form-control" required>
+                    @foreach (var jobtitle in ViewBag.Jobtitles)
+                    {
+                        <option value="@jobtitle.Value" @(jobtitle.Selected ? "selected='selected'" : "")>@jobtitle.Text</option>
+                    }
+                </select>
+            </div>
+        </div>
+    </div>
+    <div class="col-12">
+        <div class="form-group row">
+            <div class="col-sm-3 col-form-label">
+                <label for="email-id">Chức vụ</label>
+            </div>
+            <div class="col-4">
+                @*<select class="form-control" id="position" name="PositionId" required>
+                    <option value="1" @(Model.PositionId == 1 ? "selected" : "")>Thử Việc</option>
+                    <option value="2" @(Model.PositionId == 2 ? "selected" : "")>Nhân Viên</option>
+                    <option value="3" @(Model.PositionId == 3 ? "selected" : "")>Thời Vụ</option>
+                    <option value="4" @(Model.PositionId == 4 ? "selected" : "")>Thực Tập</option>
+                    <option value="5" @(Model.PositionId == 5 ? "selected" : "")>Giám đốc</option>
+                    <option value="6" @(Model.PositionId == 6 ? "selected" : "")>Trưởng phòng</option>
+                    <option value="7" @(Model.PositionId == 7 ? "selected" : "")>Phó phòng</option>
+
+                </select>*@
+                <select id="department" name="PositionId" class="form-control" required>
+                        @foreach (var position in ViewBag.Positions)
+                        {
+                            <option value="@position.Value" @(position.Selected ? "selected='selected'" : "")>@position.Text</option>
+                        }
+                </select>
+            </div>
+        </div>
+    </div>
+    <div class="col-12">
+        <div class="form-group row">
+            <div class="col-sm-3 col-form-label">
+                <label for="email-id">Phòng ban</label>
+            </div>
+            <div class="col-4">
+                @*<select class="form-control" id="department" name="DepartmentId" required>
+            <option value="1" @(Model.PositionId == 1 ? "selected" : "")>Nhân Sự</option>
+            <option value="2" @(Model.PositionId == 2 ? "selected" : "")>Sản Phẩm</option>
+            <option value="3" @(Model.PositionId == 3 ? "selected" : "")>Kỹ Thuật</option>
+            <option value="4" @(Model.PositionId == 4 ? "selected" : "")>Tài Chính</option>
+            <option value="5" @(Model.PositionId == 5 ? "selected" : "")>Hỗ Trợ</option>
+
+        </select>*@
+                
+                <select id="department" name="DepartmentId" class="form-control" required>
+
+                        @foreach (var department in ViewBag.Departments)
+                        {
+                    <option value="@department.Value" @(department.Selected ? "selected='selected'" : "")>@department.Text</option>
+                        }
+                    
+                    </select>
+            </div>
+        </div>
+    </div>
+
+        <div class="">
+            <div class="form-group row">
+                <div class="col-lg-2">
+                    <label for="email-id">Người sửa</label>
+                </div>
+                <div class="col-4">
+                    <input type="text" id="modifiedby" class="form-control" name="ModifiedBy" value="@Model.ModifiedBy" maxlength="20" />
+                </div>
+            </div>
+        </div>
+
+    <button id="btnUpdate" type="submit" class="btn btn-primary">Update</button>
+</form>
+
+@*@section Scripts {
+    <script type="text/javascript">
+        $(document).ready(function () {
+            var message = '@TempData["SuccessMessage"]';
+            if (message) {
+                console.log(1);
+            } else {
+                message = '@TempData["ErrorMessage"]';
+                if (message) {
+                    console.log(2);
+                }
+            }
+        });
+
+
+    </script>*@
+<!--}-->

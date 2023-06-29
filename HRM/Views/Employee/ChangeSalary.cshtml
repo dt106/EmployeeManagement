@@ -1,0 +1,166 @@
+﻿@{
+    ViewBag.Title = "Chỉnh sửa Lương";
+}
+@{ 
+    var now = DateTime.Now.ToString("dd/MM/yyyy");
+}
+@model HRM.DTO.SalaryFixInfo
+
+<div class="page-breadcrumb bg-white">
+    <div class="row align-items-center">
+        <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
+            <h4 class="page-title">Quá trình lương</h4>
+        </div>
+
+    </div>
+
+    <!-- /.col-lg-12 -->
+</div>
+
+<div class="container-fluid">
+    <!-- ============================================================== -->
+    <!-- Start Page Content -->
+    <!-- ============================================================== -->
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="white-box">
+                <form id="addEmployeeForm" action="@Url.Action("InsertSalaryFix", "Employee")" method="post">
+                    @Html.AntiForgeryToken()
+
+                    <input type="hidden" name="STT" id="stt"  value="@Html.Raw(Model.salaryfix.STT == null?0:Model.salaryfix.STT)">
+
+                    <div class="form-group col-sm-12">
+                        <label class="col" for="start-date">Mã nhân viên:</label>
+                        @switch (Model.salaryfix.STT)
+                        {
+                            case 0:
+                                @: <input class="form-control col-sm-5" type="number" name="EmployeeId" value="@Html.Raw(Model.salaryfix.EmployeeId==null?0:Model.salaryfix.EmployeeId)" id="employeeid" required>
+                                break;
+                            default:
+                                @: <input class="form-control col-sm-5" readonly type="number" name="EmployeeId" value="@Html.Raw(Model.salaryfix.EmployeeId==null?0:Model.salaryfix.EmployeeId)" id="employeeid" required>
+                                break;
+                        }
+                    </div>
+                    <div class="col-sm-12 row justify-content-around">
+                        <div class="form-group col row ">
+                            <div class="col">
+                                <label for="email-id">Lương sau thay đổi</label>
+                            </div>
+                            <div class="col">
+                                <input class="form-control col-sm-5"  type="number" name="Money" id="money" value="@Html.Raw(Model.salaryfix.Money==null?0:Model.salaryfix.Money)"  maxlength="10" required>
+                            </div>
+                        </div>
+                        <div class="form-group col row ">
+                            <div class="col">
+                                <label for="email-id">Phụ cấp</label>
+                            </div>
+                            <div class="col">
+                                <input class="form-control col-sm-5" type="number" name="Bonus" id="bonus" value="@Html.Raw(Model.salaryfix.Bonus==null?0:Model.salaryfix.Bonus)" maxlength="10" required>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="form-group col-sm-12 row justify-content-start">
+                        <label class="col-3" for="start-date">Ngày bắt đầu:</label>
+                        @switch (Model.salaryfix.STT)
+                        {
+                            case 0:
+                                @:<input type="date" class="form-control col-4" name="StartDate" value="@DateTime.Now.ToString("yyyy-MM-dd")" id="start-date">
+                                break;
+                            default:
+                                @:<input type="date" readonly class="form-control col-4" name="StartDate" value="@Model.salaryfix.StartDate.ToString("yyyy-MM-dd")" id="start-date">
+                                break;
+                        }
+                    </div>
+                    <div class="form-group">
+                        <label for="end-date">Mô tả</label>
+                        <input class="form-control col-auto" type="text" name="Decription" value="@Html.Raw(Model.salaryfix.Decription==null?"":Model.salaryfix.Decription)" id="decription">
+                    </div>
+                    <button type="submit" value="submit" class="btn btn-primary" id="addEmployeeBtn">Lưu</button>
+                </form>
+
+
+                <div class="table-responsive">
+                    <table class="table table-hover text-nowrap" id="myTable">
+                        <thead>
+                            <tr>
+
+                                <th class="border-top-0">Mã nhân viên</th>
+                                <th class="border-top-0">Tên nhân viên</th>
+                                <th class="border-top-0">Lương cứng</th>
+                                <th class="border-top-0">Phụ cấp</th>
+                                <th class="border-top-0">Ngày bắt đầu</th>
+                                <th class="border-top-0">Ngày kết thúc</th>
+                                <th class="border-top-0">Trạng thái</th>
+                                <th class="border-top-0">Mô tả</th>
+                                <th class="border-top-0">Hành động</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                            @foreach (var item in Model.salaryFixes)
+                        {
+                            <tr>
+                                <td>@item.EmployeeId</td>
+                                <td style="">@item.EmployeeName</td>
+                                <td style="">@item.Money.ToString("#,##0;-#,##0")</td>
+                                <td style="">@item.Bonus.ToString("#,##0;-#,##0")</td>
+                                <td>@item.StartDate.ToString("dd/MM/yyyy")</td>
+                                <td>@item.EndDate.ToString("dd/MM/yyyy")</td>
+                                <td>@Html.Raw(item.Status == true ? "Khả dụng" : "Không khả dụng")</td>
+                                <td>@item.Decription</td>
+                                <td class="row row-cols-2">
+                                    <form action="@Url.Action("GetSalaFixById", "Employee", new { STT = item.STT })" method="post">
+                                        @Html.AntiForgeryToken()
+                                        <button type="submit" class="btn btn-primary"onclick="return confirm('Bạn muốn cập nhật lương nhân viên này?')">Sửa</button>
+                                    </form>
+                                </td>
+
+                            </tr>
+
+                            }
+                        </tbody>
+                    </table>
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+</div>
+@section script{
+
+
+    <script>
+        $(document).ready(function () { 
+            $('#addEmployeeBtn').click(function (event) {
+                event.preventDefault();
+                var data = $("#addEmployeeForm").serialize(); // Lấy dữ liệu từ form
+                $.ajax({
+                    type: "POST",
+                    url: "/Employee/InsertSalaryFix",
+                    data: data,
+                    success: function (data) {
+                        if (data.Success) {
+                            alert(data.Message); // Nếu thành công, hiển thị thông báo.
+                            window.location.href = '/Employee/ChangeSalary';
+/*                            location.reload();*/
+                        } else {
+                            alert(data.Message); // Nếu thất bại, hiển thị thông báo lỗi.
+                        }
+                    },
+                    error: function () {
+                        alert("Lỗi kết nối với server.");
+                    }
+                });
+            });
+
+        });
+        
+    </script>
+
+}
+
+
+

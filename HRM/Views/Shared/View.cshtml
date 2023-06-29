@@ -1,0 +1,284 @@
+﻿
+<!DOCTYPE html>
+<html dir="ltr" lang="en">
+
+<head>
+    <title>@ViewBag.Title</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Favicon icon -->
+    <link rel="icon" type="image/png" sizes="16x16" href="~/Content/plugins/images/favicon.png">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="~/Content/plugins/bower_components/chartist/dist/chartist.min.css">
+    <link rel="stylesheet" href="~/Content/plugins/bower_components/chartist-plugin-tooltips/dist/chartist-plugin-tooltip.css">
+    <!-- Custom CSS -->
+    <link href="~/Content/css/style.min.css" rel="stylesheet">
+    @*<link rel="stylesheet" type="text/css" href="~/Scripts/js/jquery.dataTables.min.css">*@
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css">
+    @*<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">*@
+    <link rel="stylesheet" href="~/Content/bootstrap.min.css">
+    <link rel="stylesheet" href="~/Content/css/login.css" />
+    @RenderSection("styles", required: false)
+
+</head>
+
+<body>
+    <!-- ============================================================== -->
+    <!-- Preloader - style you can find in spinners.css -->
+    <!-- ============================================================== -->
+    @*<div class="preloader">
+            <div class="lds-ripple">
+                <div class="lds-pos"></div>
+                <div class="lds-pos"></div>
+            </div>
+        </div>*@
+    <!-- ============================================================== -->
+    <!-- Main wrapper - style you can find in pages.scss -->
+    <!-- ============================================================== -->
+    <div id="main-wrapper" data-layout="vertical" data-navbarbg="skin5" data-sidebartype="full"
+         data-sidebar-position="absolute" data-header-position="absolute" data-boxed-layout="full">
+        <!-- ============================================================== -->
+        <!-- Topbar header - style you can find in pages.scss -->
+        <!-- ============================================================== -->
+        @*@RenderPage("_Header.cshtml")*@
+        <a class="navbar-brand navbar-fixed-top">
+            <!-- Logo icon -->
+            <b class="logo-icon">
+                <!-- Dark Logo icon -->
+                <img src="~/Content/plugins/images/logoeno.png" alt="homepage" />
+            </b>
+          
+        </a>
+
+            <!-- ============================================================== -->
+            <!-- End Topbar header -->
+            <!-- ============================================================== -->
+            <!-- ============================================================== -->
+            <!-- Left Sidebar - style you can find in sidebar.scss  -->
+            <!-- ============================================================== -->
+            <aside class="left-sidebar" data-sidebarbg="skin6">
+                <!-- Sidebar scroll-->
+                <div class="scroll-sidebar">
+                   
+              
+                        <!-- Sidebar navigation-->
+                        <nav class="sidebar-nav">
+                            <ul id="sidebarnav">
+                                <!-- User Profile-->
+                                <li class="sidebar-item pt-2">
+                                    <a class="sidebar-link waves-effect waves-dark sidebar-link" href="@Url.Action("Index","Home")"
+                                       aria-expanded="false">
+                                        <i class="far fa-clock" aria-hidden="true"></i>
+                                        <span class="hide-menu">Trang chính</span>
+                                    </a>
+                                </li>
+                                <li class="sidebar-item">
+                                    <a class="sidebar-link waves-effect waves-dark sidebar-link"
+                                       aria-expanded="false">
+                                        <i class="fa fa-user" aria-hidden="true"></i>
+                                        <span class="hide-menu">Trang cá nhân</span>
+                                    </a>
+                                    <ul class="collapse nav flex-column ms-1 " data-bs-toggle="collapse" id="submenu2" data-bs-parent="#menu">
+                                        <li class="sidebar-item">
+                                            <a class="sidebar-link waves-dark" href="@Url.Action("Profile","Profile")"
+                                               aria-expanded="false">
+                                                <i class="" aria-hidden="true"></i>
+                                                <span class="hide-menu">Thông tin</span>
+                                            </a>
+                                        </li>
+                                        <li class="sidebar-item">
+                                            <a class="sidebar-link waves-dark" href="@Url.Action("WorkStatus","Profile")"
+                                               aria-expanded="false">
+                                                <i class="" aria-hidden="true"></i>
+                                                <span class="hide-menu">Trạng thái làm việc</span>
+                                            </a>
+                                        </li>
+                                        
+                                    </ul>
+                                </li>
+                                <li class="sidebar-item">
+                                    <a class="sidebar-link waves-effect waves-dark sidebar-link"
+                                       aria-expanded="false">
+                                        <i class="fa fa-table" aria-hidden="true"></i>
+                                        <span class="hide-menu">Quản lý nhân viên</span>
+                                    </a>
+                                    <ul class="collapse nav flex-column ms-1 " data-bs-toggle="collapse" id="submenu2" data-bs-parent="#menu">
+                                        <li class="sidebar-item">
+                                            <a class="sidebar-link waves-dark" href="@Url.Action("Employee","Employee")"
+                                               aria-expanded="false">
+                                                <i class="" aria-hidden="true"></i>
+                                                <span class="hide-menu">Danh sách nhân viên</span>
+                                            </a>
+                                        </li>
+                                        <li class="sidebar-item">
+                                            <a class="sidebar-link waves-dark" href="@Url.Action("WorkPress","Employee")"
+                                               aria-expanded="false">
+                                                <i class="" aria-hidden="true"></i>
+                                                <span class="hide-menu">Luân chuyển công tác</span>
+                                            </a>
+                                        </li>
+                                        <li class="sidebar-item">
+                                            <a class="sidebar-link waves-dark" href="@Url.Action("ChangeSalary","Employee")"
+                                               aria-expanded="false">
+                                                <i class="" aria-hidden="true"></i>
+                                                <span class="hide-menu">Quá trình lương</span>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li class="sidebar-item">
+                                    <a class="sidebar-link waves-effect waves-dark sidebar-link"
+                                       aria-expanded="false">
+                                        <i class="fa fa-table" aria-hidden="true"></i>
+                                        <span class="hide-menu">Bảng chấm công</span>
+                                    </a>
+                                    <ul class="collapse nav flex-column ms-1 " data-bs-toggle="collapse" id="submenu2" data-bs-parent="#menu">
+                                        <li class="sidebar-item">
+                                            <a class="sidebar-link waves-dark" href="@Url.Action("Timekeeping","Timekeeping")"
+                                               aria-expanded="false">
+                                                <i class="" aria-hidden="true"></i>
+                                                <span class="hide-menu">Trạng thái</span>
+                                            </a>
+                                        </li>
+                                        <li class="sidebar-item">
+                                            <a class="sidebar-link waves-dark" href="@Url.Action("Detail","Timekeeping")"
+                                               aria-expanded="false">
+                                                <i class="" aria-hidden="true"></i>
+                                                <span class="hide-menu">Bảng công chi tiết</span>
+                                            </a>
+                                        </li>
+                                        <li class="sidebar-item">
+                                            <a class="sidebar-link waves-dark" href="@Url.Action("Salary","Timekeeping")"
+                                               aria-expanded="false">
+                                                <i class="" aria-hidden="true"></i>
+                                                <span class="hide-menu">Bảng lương</span>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li class="sidebar-item">
+                                    <a class="sidebar-link waves-effect waves-dark sidebar-link" href="@Url.Action("Department","Department")"
+                                       aria-expanded="false">
+                                        <i class="fa fa-table" aria-hidden="true"></i>
+                                        <span class="hide-menu">Phòng ban</span>
+                                    </a>
+
+                                </li>
+                                @*<li class="sidebar-item">
+                        <a class="sidebar-link waves-effect waves-dark sidebar-link" href="map-google.html"
+                           aria-expanded="false">
+                            <i class="fa fa-globe" aria-hidden="true"></i>
+                            <span class="hide-menu">Google Map</span>
+                        </a>
+                    </li>
+                    <li class="sidebar-item">
+                        <a class="sidebar-link waves-effect waves-dark sidebar-link" href="blank.html"
+                           aria-expanded="false">
+                            <i class="fa fa-columns" aria-hidden="true"></i>
+                            <span class="hide-menu">Blank Page</span>
+                        </a>
+                    </li>*@
+
+
+                            </ul>
+
+                        </nav>
+                        <!-- End Sidebar navigation -->
+                    </div>
+                <!-- End Sidebar scroll-->
+            </aside>
+            <!-- ============================================================== -->
+            <!-- End Left Sidebar - style you can find in sidebar.scss  -->
+            <!-- ============================================================== -->
+            <!-- ============================================================== -->
+            <!-- Page wrapper  -->
+            <!-- ============================================================== -->
+            <div class="page-wrapper">
+                <!-- ============================================================== -->
+                <!-- Bread crumb and right sidebar toggle -->
+                <!-- ============================================================== -->
+                @RenderBody()
+                <!-- ============================================================== -->
+                <!-- End Container fluid  -->
+                <!-- ============================================================== -->
+                <!-- ============================================================== -->
+                <!-- footer -->
+                <!-- ============================================================== -->
+                <!-- ============================================================== -->
+                <!-- End footer -->
+                <!-- ============================================================== -->
+            </div>
+            <!-- ============================================================== -->
+            <!-- End Page wrapper  -->
+            <!-- ============================================================== -->
+        </div>
+
+    
+    <!-- ============================================================== -->
+    <!-- End Wrapper -->
+    <!-- ============================================================== -->
+    <!-- ============================================================== -->
+    <!-- All Jquery -->
+    <!-- ============================================================== -->
+    @*<script type="text/javascript" src="~/Content/plugins/bower_components/jquery/dist/jquery.min.js"></script>*@
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <!-- Bootstrap tether Core JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="~/Content/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script type="text/javascript" src="~/Scripts/js/app-style-switcher.js"></script>
+    <script type="text/javascript" src="~/Content/plugins/bower_components/jquery-sparkline/jquery.sparkline.min.js"></script>
+    <!--Wave Effects -->
+    <script src="~/Scripts/js/waves.js"></script>
+    <!--Menu sidebar -->
+    <script src="~/Scripts/js/sidebarmenu.js"></script>
+    <!--Custom JavaScript -->
+    <script src="~/Scripts/js/custom.js"></script>
+    <!--This page JavaScript -->
+    <!--chartis chart-->
+    <script type="text/javascript" src="~/Content/plugins/bower_components/chartist/dist/chartist.min.js"></script>
+    <script src="~/Scripts/js/pages/dashboards/dashboard1.js"></script>
+    <script src="~/Scripts/jquery-3.4.1.min.js"></script>
+    <script src="~/Scripts/js/jquery.dataTables.min.js"></script>
+
+    @RenderSection("script", required: false)
+    <script>
+
+        $(document).ready(function () {
+            $('#myTable').DataTable({
+             
+                "paging": true,
+                "ordering": false,
+                "pageLength": 25,
+                "lengthChange": false,
+                "language": {
+                "decimal": "",
+                "emptyTable": "Không có dữ liệu",
+                "info": "Đang xem _START_ đến _END_ trong tổng số _TOTAL_ mục",
+                "infoEmpty": "Đang xem 0 đến 0 trong tổng số 0 mục",
+                "infoFiltered": "(được lọc từ _MAX_ mục)",
+                "infoPostFix": "",
+                "thousands": ",",
+                "Menu": "Hiển thị _MENU_ mục",
+                "loadingRecords": "Đang tải...",
+                "processing": "Đang xử lý...",
+                "search": "Tìm kiếm:",
+                "zeroRecords": "Không tìm thấy kết quả phù hợp",
+                "paginate": {
+                    "first": "Đầu",
+                    "last": "Cuối",
+                    "next": "Tiếp",
+                    "previous": "Trước"
+                },
+                
+            }
+            });
+        });
+
+    </script>
+</body>
+
+</html>

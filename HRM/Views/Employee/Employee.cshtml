@@ -1,0 +1,342 @@
+﻿@{ 
+    ViewBag.Title = "Quản lý nhân viên";
+}
+
+@model List<HRM.DTO.Employee>
+
+
+<div class="page-breadcrumb bg-white">
+    <div class="row align-items-center">
+        <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
+            <h4 class="page-title">Quản lý nhân viên</h4>
+        </div>
+        <div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
+            <div class="d-md-flex">
+                <ol class="breadcrumb ms-auto">
+                    <li><a href="#" class="fw-normal">Danh sách nhân viên</a></li>
+                </ol>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- /.col-lg-12 -->
+</div>
+<!-- ============================================================== -->
+<!-- End Bread crumb and right sidebar toggle -->
+<!-- ============================================================== -->
+<!-- ============================================================== -->
+<!-- Container fluid  -->
+<!-- ============================================================== -->
+<div class="container-fluid">
+    <!-- ============================================================== -->
+    <!-- Start Page Content -->
+    <!-- ============================================================== -->
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="white-box">
+                <div class="d-md-flex mb-3">
+                    <div>
+                        <button id="add" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">Thêm nhân viên</button>
+                    </div>
+
+                    @*<h3 class="box-title">Thống kê nhân sự</h3>*@
+                    @*<div class="col-md-3 col-sm-4 col-xs-6 ms-auto">
+                            <select class="form-select shadow-none row border-top">
+                                <option>Platform</option>
+                                <option>April 2021</option>
+                                <option>May 2021</option>
+                                <option>June 2021</option>
+                                <option>July 2021</option>
+                            </select>
+                        </div>
+                        <div class="col-md-3 col-sm-4 col-xs-6 ms-auto">
+                            <select class="form-select shadow-none row border-top">
+                                <option>Nhân viên</option>
+                                <option>April 2021</option>
+                                <option>May 2021</option>
+                                <option>June 2021</option>
+                                <option>July 2021</option>
+                            </select>
+                        </div>*@
+                    
+                </div>
+                <div class=""></div>
+                <div class="table-responsive">
+                    <i class="fa fa-circle" style="color:#1abb9c;"> Đang làm</i>
+                    <i class="fa fa-circle" style="color:#FF0000;"> Đã nghỉ</i>
+                    <table class="table table-hover text-nowrap" id="myTable">
+                        <thead>
+                            <tr>
+                                <th class="border-top-0">Mã NV</th>
+                                <th class="border-top-0">Tên nhân viên</th>
+                                <th class="border-top-0">Giới tính</th>
+                                <th class="border-top-0">Email</th>
+                                <th class="border-top-0">SĐT</th>
+                                <th class="border-top-0">Địa chỉ</th>
+                                <th class="border-top-0">CMT/CCCD</th>
+                                <th class="border-top-0">Ngày sinh</th>
+                                <th class="border-top-0">Vị trí</th>
+                                <th class="border-top-0">Chức vụ</th>
+                                <th class="border-top-0">Phòng ban</th>
+                                <th class="border-top-0">Thời gian vào</th>
+                                <th class="border-top-0">Thời gian nghỉ</th>
+                                <th class="border-top-0">Trạng thái</th>
+                                <th class="border-top-0">Thời gian tạo</th>
+                                <th class="border-top-0">Người tạo</th>
+                                <th class="border-top-0">Thời gian sửa</th>
+                                <th class="border-top-0">Người sửa</th>
+                                <th class=" border-top-0">Hành động</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var emp in Model)
+                            {
+
+                                <tr>
+                                    <td style="text-align: center;">@Html.ActionLink(emp.EmployeeId.ToString(),"EmployeeInfo", new { EmployeeId = emp.EmployeeId })</td>
+                                    <td>@emp.EmployeeName</td>
+                                    <td style="text-align: center;">@Html.Raw(@emp.Gender == 1 ? "Nam" : "Nữ")</td>
+                                    <td>@emp.Email</td>
+                                    <td style="text-align: center;">@emp.PhoneNumber</td>
+                                    <td style="text-align: center;">@emp.Address</td>
+                                    <td style="text-align: center;">@emp.CCCD</td>
+                                    <td style="text-align: center;">@emp.Birthday.ToString("dd/MM/yyyy")</td>
+                                    <td style="text-align: center;">
+                                        @switch (emp.JobtitleId)
+                                        {
+                                            case 1:
+                                                @:Database Analyst
+                                                break;
+                                            case 2:
+                                                @:AI
+                                                break;
+                                            case 3:
+                                                @:Android
+                                                break;
+                                            case 4:
+                                                @:HR
+                                                break;
+                                            case 5:
+                                                @:BackEnd
+                                                break;
+                                            case 6:
+                                                @:FontEnd
+                                                break;
+                                            case 7:
+                                                @:Điều hành
+                                                break;
+                                            default:
+
+                                                break;
+                                        }
+                                    </td>
+                                    <td style="text-align: center;">
+                                        @switch (emp.PositionId)
+                                        {
+                                            case 1:
+                                                @:Thử Việc
+                                                break;
+                                            case 2:
+                                                @:Nhân Viên
+                                                break;
+                                            case 3:
+                                                @:Thời Vụ
+                                                break;
+                                            case 4:
+                                                @:Thực Tập
+                                                break;
+                                            case 5:
+                                                @:Giám đốc
+                                                break;
+                                            case 6:
+                                                @:Trưởng phòng
+                                                break;
+                                            case 7:
+                                                @:Phó phòng
+                                                break;
+                                            default:
+
+                                                break;
+                                        }
+                                    </td>
+                                    <td style="text-align: center;">
+                                        @switch (emp.DepartmentId)
+                                        {
+                                            case 1:
+                                                @:Nhân sự
+                                                break;
+                                            case 2:
+                                                @:Sản phẩm
+                                                break;
+                                            case 3:
+                                                @:Kỹ thuật
+                                                break;
+                                            case 4:
+                                                @:Tài chính
+                                                break;
+                                            case 5:
+                                                @:Hỗ trợ
+                                                break;
+                                            default:
+
+                                                break;
+                                        }
+                                    </td>
+                                    <td style="text-align: center;">@emp.TimeIn.ToString("dd/MM/yyyy")</td>
+                                    <td style="text-align: center;">@emp.TimeOut.ToString("dd/MM/yyyy")</td>
+                                    <td style="text-align: center;"><i class="fa fa-circle" style="color:@(emp.Status == 1 ? "#1abb9c" : "#FF0000");"></i></td>
+                                    <td style="text-align: center;">@emp.CreateTime.ToString("y")</td>
+                                    <td>@emp.CreateBy</td>
+                                    <td style="text-align: center;">@emp.ModifiedTime</td>
+                                    <td>@emp.ModifiedBy</td>
+                                    <td class="row row-cols-2">
+                                        <form action="@Url.Action("DeleteEmployee", "Employee", new { EmployeeId = emp.EmployeeId })" method="post">
+                                            @Html.AntiForgeryToken()
+                                            <button type="submit" class="btn btn-danger" onclick="return confirm('Bạn có chắc muốn xoá không?')">Xoá</button>
+                                        </form>
+                                        <form action="@Url.Action("GetEmployeeById", "Employee", new { EmployeeId = emp.EmployeeId })" method="post">
+                                            @Html.AntiForgeryToken()
+                                            <button type="submit" class="btn btn-primary">Sửa</button>
+                                        </form>
+                                    </td>
+
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">
+                    Thêm mới nhân viên
+                </h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="addEmployeeForm" action="@Url.Action("Insert", "Employee")" method="post">
+                    @Html.AntiForgeryToken()
+                    <div class="form-group">
+                        <label for="name">Tên nhân viên</label>
+                        <input type="text" class="form-control" id="name" name="EmployeeName" placeholder="Tên nhân viên" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="Gender">Giới tính</label>
+                        <select class="form-control" id="gender" name="Gender" required>
+                            <option value="1">Nam</option>
+                            <option value="0">Nữ</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="phone">Email</label>
+                        <input type="text" class="form-control" id="email" name="Email" value="" placeholder="Email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="phone">CCCD</label>
+                        <input type="text" class="form-control" id="cccd" name="CCCD" value="" placeholder="Căn cước công dân" maxlength="13">
+                    </div>
+                    <div class="form-group">
+                        <label for="phone">Ngày sinh</label>
+                        <input type="date" class="form-control" id="birthday" name="Birthday" value="" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="phone">Ngày vào làm</label>
+                        <input type="date" class="form-control" id="timein" name="TimeIn" value="" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="Gender">Phòng ban</label>
+                        <select class="form-control" id="gender" name="DepartmentId" required>
+                            <option value="1">Nhân sự</option>
+                            <option value="2">Sản phẩm</option>
+                            <option value="3">Kỹ thuật</option>
+                            <option value="4">Tài chính</option>
+                            <option value="5">Hỗ trợ</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="Gender">Chức vụ</label>
+                        <select id="department" name="PositionId" class="form-control" required>
+                            @foreach (var position in ViewBag.Positions)
+                            {
+                                <option value="@position.Value">@position.Text</option>
+                            }
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="Gender">Vị trí làm việc</label>
+                        <select id="department" name="JobtitleId" class="form-control" required>
+                            @foreach (var jobtitle in ViewBag.Jobtitles)
+                            {
+                                <option value="@jobtitle.Value">@jobtitle.Text</option>
+                            }
+                        </select>
+                    </div>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+                    <button type="button" class="btn btn-primary" id="addEmployeeBtn">Thêm mới</button>
+
+                </form>
+            </div>
+
+        </div>
+    </div>
+</div>
+<!-- ============================================================== -->
+<!-- End PAge Content -->
+<!-- ============================================================== -->
+<!-- ============================================================== -->
+<!-- Right sidebar -->
+<!-- ============================================================== -->
+<!-- .right-sidebar -->
+<!-- ============================================================== -->
+<!-- End Right sidebar -->
+<!-- ============================================================== -->
+
+
+@section script{
+    
+    <script>
+        $(document).ready(function () {
+            $('#add').on('click', function () {
+                $('#exampleModal').modal('show');
+            });
+        });
+    </script>
+    <script>
+        $(document).ready(function () {
+            $('#addEmployeeBtn').click(function () {
+                var data = $("#addEmployeeForm").serialize(); // Lấy dữ liệu từ form
+                $.ajax({
+                    type: "POST",
+                    url: "/Employee/Insert",
+                    data: data,
+                    success: function (data) {
+                        if (data.Success) {
+                            alert(data.Message); // Nếu thành công, hiển thị thông báo.
+                            location.reload();
+                        } else {
+                            alert("Lỗi: " + data.Message); // Nếu thất bại, hiển thị thông báo lỗi.
+                        }
+                    },
+                    error: function () {
+                        alert("Lỗi kết nối với server.");
+                    }
+                });
+            });
+        });
+     
+
+    </script>
+
+}
+
+

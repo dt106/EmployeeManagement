@@ -1,0 +1,33 @@
+@{ 
+    Layout = null;
+
+}
+
+@{ 
+    ViewBag.Title = "Login";
+}
+<!DOCTYPE html>
+<html dir="ltr" lang="en">
+<head>
+    <title>@ViewBag.Title</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="~/Content/css/login.css" />
+</head>
+<body>
+        <div class="container">
+            <form class="form-signin"  action="@Url.Action("Login", "Login")" method="post">
+                @Html.AntiForgeryToken()
+                <label >Login ENO</label>
+                <label for="username" class="sr-only">User Name</label>
+                <input type="text" id="username" name="Username" class="form-control" placeholder="User Name" required autofocus>
+                <label for="password" class="sr-only">Password</label>
+                <input type="password" id="password" name="Password" placeholder="Password" class="form-control"  required>
+                <button class="btn btn-lg btn-primary btn-block" type="submit">SignIn</button>
+            </form>
+        </div>
+        
+</body>
+</html>

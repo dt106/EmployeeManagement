@@ -1,0 +1,168 @@
+﻿@{
+    ViewBag.Title = "Quản lý chấm công";
+}
+@model List<HRM.DTO.DailyLog>
+
+
+<div class="page-breadcrumb bg-white">
+    <div class="row align-items-center">
+        <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
+            <h4 class="page-title">Quản lý công ngày</h4>
+        </div>
+        <div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
+            <div class="d-md-flex">
+
+            </div>
+        </div>
+
+    </div>
+
+    <!-- /.col-lg-12 -->
+</div>
+<!-- ============================================================== -->
+<!-- End Bread crumb and right sidebar toggle -->
+<!-- ============================================================== -->
+<!-- ============================================================== -->
+<!-- Container fluid  -->
+<!-- ============================================================== -->
+<div class="container-fluid">
+    <!-- ============================================================== -->
+    <!-- Start Page Content -->
+    <!-- ============================================================== -->
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="white-box">
+                <div>
+                    <button id="add" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">Chấm công bù</button>
+                </div>
+                <div class="table-responsive">
+                    <table class="table table-hover text-nowrap" id="myTable">
+                        <thead>
+                            <tr>
+                                <th class="border-top-0">Mã nhân viên</th>
+                                <th class="border-top-0">Tên nhân viên</th>
+                                <th class="border-top-0">Ngày chấm công</th>
+                                <th class="border-top-0">Vào</th>
+                                <th class="border-top-0">Ra</th>
+                                <th class="border-top-0">Giờ làm</th>
+                                <th class="border-top-0">Giờ bị trừ</th>
+                                <th class="border-top-0">Giờ thực</th>
+                                <th class="border-top-0">Trạng thái công</th>
+                            
+
+
+                            </tr>
+                        </thead>
+                        <tbody>
+
+
+                            @foreach (var emp in Model)
+                            {
+
+                            <tr>
+                                <td>@emp.EmployeeID</td>
+                                <td>@emp.EmployeeName</td>
+                                <td style="text-align: center;">@emp.DayLog.ToString("dd-MM-yyyy")</td>
+                                <td>@emp.BeginLog</td>
+                                <td>@emp.EndLog</td>
+                                <td style="text-align: center;">@emp.HourWork</td>
+                                <td style="text-align: center;">@emp.ReduceTime</td>
+                                <td style="text-align: center;">@emp.RealHour</td>
+                                <td style="text-align: center;">@emp.StatusDetail</td>
+                                
+
+                            </tr>
+                            }
+
+
+                        </tbody>
+                    </table>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">
+                    Thêm mới
+                </h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="addEmployeeForm" >
+                    
+                    <div class="form-group">
+                        <label for="name">Mã nhân viên</label>
+                        <input type="number" class="form-control" id="id" name="EmployeeID" value="" placeholder="Mã nhân viên" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="date">Ngày chấm công</label>
+                        <input type="date" class="form-control" id="daylog" name="LogDate" value="" placeholder="Ngày chấm công" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="phone">Thời gian</label>
+                        <input type="time" class="form-control" id="begintime" value="" name="LogTime" placeholder="Giờ chấm công" required>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+                <button id="btnAdd" type="submit" class="btn btn-primary">Thêm mới</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- ============================================================== -->
+<!-- End PAge Content -->
+<!-- ============================================================== -->
+<!-- ============================================================== -->
+<!-- Right sidebar -->
+<!-- ============================================================== -->
+<!-- .right-sidebar -->
+<!-- ============================================================== -->
+<!-- End Right sidebar -->
+<!-- ============================================================== -->
+
+
+@section script{
+
+    <script>
+        $(document).ready(function () {
+            $('#add').on('click', function () {
+                $('#exampleModal').modal('show');
+            });
+        });
+    </script>
+    <script>
+        $(document).ready(function () {
+            $('#btnAdd').click(function () {
+                var data = $("#addEmployeeForm").serialize(); // Lấy dữ liệu từ form
+                $.ajax({
+                    type: "POST",
+                    url: "/Timekeeping/Compensatory",
+                    data: data,
+                    success: function () {
+                        // Xử lý khi gửi thành công
+                        console.log("Thêm mới thành công!");
+                        $('#exampleModal').modal('hide'); // Đóng modal
+                        location.reload(); // Tải lại trang
+                    },
+                    error: function () {
+                        // Xử lý khi gửi lỗi
+                        console.log("Thêm mới thất bại!");
+                    }
+                });
+            });
+        });
+    </script>
+}
+
+
+

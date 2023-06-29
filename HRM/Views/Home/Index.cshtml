@@ -1,0 +1,213 @@
+﻿
+@{ 
+    ViewBag.Title = "Home";
+}
+@model List<HRM.DTO.TimekeepingEmp>
+
+
+<div class="page-breadcrumb bg-white">
+    <div class="row align-items-center">
+        <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
+            <h4 class="page-title">Trang chính</h4>
+        </div>
+        <div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
+            <div class="d-md-flex">
+                <ol class="breadcrumb ms-auto">
+                    <li><a href="#" class="fw-normal">Trang chính</a></li>
+                </ol>
+                <a href="@Url.Action("CheckIn","Home")" method="post" class="btn btn-danger  d-none d-md-block pull-right ms-3 hidden-xs hidden-sm waves-effect waves-light text-white">Chấm công</a>
+            </div>
+        </div>
+    </div>
+    <!-- /.col-lg-12 -->
+</div>
+<!-- ============================================================== -->
+<!-- End Bread crumb and right sidebar toggle -->
+<!-- ============================================================== -->
+<!-- ============================================================== -->
+<!-- Container fluid  -->
+<!-- ============================================================== -->
+<div class="container-fluid">
+    <!-- ============================================================== -->
+    <!-- Three charts -->
+    <!-- ============================================================== -->
+    <div class="row justify-content-center">
+        <div class="col-lg-4 col-md-12">
+            <div class="white-box analytics-info">
+                <h3 class="box-title">Tổng nhân viên</h3>
+                <ul class="list-inline two-part d-flex align-items-center mb-0">
+                    <li>
+                        <div id="sparklinedash">
+                            <canvas width="67" height="30"
+                                    style="display: inline-block; width: 67px; height: 30px; vertical-align: top;"></canvas>
+                        </div>
+                    </li>
+                    <li class="ms-auto"><span class="counter text-success"></span></li>
+                </ul>
+            </div>
+        </div>
+        <div class="col-lg-4 col-md-12">
+            <div class="white-box analytics-info">
+                <h3 class="box-title">Nhân viên mới trong tháng</h3>
+                <ul class="list-inline two-part d-flex align-items-center mb-0">
+                    <li>
+                        <div id="sparklinedash2">
+                            <canvas width="67" height="30"
+                                    style="display: inline-block; width: 67px; height: 30px; vertical-align: top;"></canvas>
+                        </div>
+                    </li>
+                    <li class="ms-auto"><span class="counter text-purple"></span></li>
+                </ul>
+            </div>
+        </div>
+        <div class="col-lg-4 col-md-12">
+            <div class="white-box analytics-info">
+                <h3 class="box-title">Nhân viên nghỉ trong tháng</h3>
+                <ul class="list-inline two-part d-flex align-items-center mb-0">
+                    <li>
+                        <div id="sparklinedash3">
+                            <canvas width="67" height="30"
+                                    style="display: inline-block; width: 67px; height: 30px; vertical-align: top;"></canvas>
+                        </div>
+                    </li>
+                    <li class="ms-auto">
+                        <span class="counter text-info"></span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!-- ============================================================== -->
+    <!-- PRODUCTS YEARLY SALES -->
+    <!-- ============================================================== -->
+    @*<div class="row">
+        <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12">
+            <div class="white-box">
+                <h3 class="box-title">Biến động nhân viên năm</h3>
+                <div class="d-md-flex">
+                    <ul class="list-inline d-flex ms-auto">
+                        <li class="ps-3">
+                            <h5><i class="fa fa-circle me-1 text-info"></i>Nhân viên mới</h5>
+                        </li>
+                        <li class="ps-3">
+                            <h5><i class="fa fa-circle me-1 text-inverse"></i>Nhân viên rời</h5>
+                        </li>
+                    </ul>
+                </div>
+                <div id="ct-visits" style="height: 405px;">
+                    <div class="chartist-tooltip" style="top: -17px; left: -12px;">
+                        <span class="chartist-tooltip-value">6</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>*@
+    <!-- ============================================================== -->
+    <!-- RECENT SALES -->
+    <!-- ============================================================== -->
+    <div class="row">
+        <div class="col-md-12 col-lg-12 col-sm-12">
+            <div class="white-box">
+                <div class="d-md-flex mb-3">
+                    <h3 class="box-title mb-0">Bảng chấm công ngày</h3>
+                    <!-- <div class="col-md-3 col-sm-4 col-xs-6 ms-auto">
+                        <select class="form-select shadow-none row border-top">
+                            <option>March 2021</option>
+                            <option>April 2021</option>
+                            <option>May 2021</option>
+                            <option>June 2021</option>
+                            <option>July 2021</option>
+                        </select>
+                    </div> -->
+                </div>
+                <div class="table-responsive">
+                    <table class="table no-wrap">
+                        <thead>
+                            <tr>
+                                <th class="border-top-0">#</th>
+                                <th class="border-top-0">Ngày</th>
+                                <th class="bordert-top-0">Ngày chấm</th>
+                                <th class="border-top-0">Giờ chấm công</th>
+                                <th class="border-top-0">Mã nhân viên</th>
+                                <th class="border-top-0">Tên</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td>@item.LogID</td>
+                                    <td class="txt-oflo">@item.LogDate.ToString("dd/MM/yyyy")</td>
+                                    <td><span class="text-info">@item.DayName</span></td>
+                                    <td>@item.LogTime</td>
+                                    <td class="txt-oflo">@item.EmployeeID</td>
+                                    <td class="txt-oflo">@item.EmployeeName</td>
+                                </tr>
+                            }
+                         
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+@section script{
+    <script>
+
+        // Khởi tạo dữ liệu ban đầu
+        var data = {
+            labels: ["Tháng 1", "Tháng 2", "Tháng 3", "Tháng 4", "Tháng 5", "Tháng 6", "Tháng 7", "Tháng 8", "Tháng 9", "Tháng 10", "Tháng 11", "Tháng 12"],
+            series: [
+                [10, 15, 20, 25, 100, 35, 40, 90, 50, 55, 200, 65], // Nhân viên mới
+                [5, 10, 15, 20, 25, 30, 35, 40, 45, 10, 55, 30] // Nhân viên rời
+            ]
+        };
+
+        // Khởi tạo các tù chọn của biểu đồ
+        var options = {
+            seriesBarDistance: 10,
+            axisX: {
+                showGrid: false
+            },
+            height: "100%"
+        };
+
+        // Khởi tạo các tùy chọn responsive của biểu đồ
+        var responsiveOptions = [
+            ['screen and (max-width: 640px)', {
+                seriesBarDistance: 5,
+                axisX: {
+                    labelInterpolationFnc: function (value) {
+                        return value[0];
+                    }
+                }
+            }]
+        ];
+
+        // Tạo mới đối tượng biểu đồ
+        new Chartist.Bar('#ct-visits', data, options, responsiveOptions);
+
+        // Cập nhật dữ liệu và vẽ lại biểu đồ
+        //function updateData() {
+        //    // Thêm 2 giá trị mới vào chuỗi giá trị "Nhân viên mới"
+        //    data.series[0].push(70);
+        //    data.series[0].push(75);
+
+        //    // Thêm 2 giá trị mới vào chuỗi giá trị "Nhân viên rời"
+        //    data.series[1].push(30);
+        //    data.series[1].push(35);
+
+        //    // Cập nhật lại biểu đồ
+        //    new Chartist.Bar('#ct-visits', data, options, responsiveOptions);
+        //}
+
+        //// Gọi hàm cập nhật dữ liệu và vẽ lại biểu đồ
+        //updateData();
+    </script>
+    
+    
+    }

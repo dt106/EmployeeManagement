@@ -1,0 +1,293 @@
+﻿@{
+    ViewBag.Title = "Chuyển công tác";
+}
+@model HRM.DTO.EmployeeInfo
+
+<div class="page-breadcrumb bg-white">
+    <div class="row align-items-center">
+        <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
+            <h4 class="page-title">Luân chuyển công tác</h4>
+        </div>
+
+    </div>
+
+    <!-- /.col-lg-12 -->
+</div>
+
+<div class="container-fluid">
+    <!-- ============================================================== -->
+    <!-- Start Page Content -->
+    <!-- ============================================================== -->
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="white-box">
+                    <form action="@Url.Action("Search", "Employee")" method="post">
+                         @Html.AntiForgeryToken()
+                        <div class="col-sm">
+                            <label class="col-sm" for="start-date">Mã nhân viên:</label>
+                        </div>
+                        <div class="col-sm">
+                            <input class="form-control col-sm" type="number" name="EmployeeId" id="employeeid" value="0">
+                        </div>
+                        <div class="col-sm">
+                                <button type="submit" class="btn btn-primary">Tìm</button>
+                        </div>
+                    </form>
+                <form id="addEmployeeForm" action="@Url.Action("InsertEmployeeHistory", "Employee")" method="post">
+                    @Html.AntiForgeryToken()
+                    <input type="hidden" name="EmployeeId" id="employeeid" value="@Html.Raw(Model.employee.EmployeeId == null?0:Model.employee.EmployeeId)">
+                        <div class="col-sm-12 row justify-content-around">
+                            <div class="form-group col row ">
+                                <div class="col">
+                                    <label for="email-id">Tên nhân viên:</label>
+                                </div>
+                                <div class="col">
+                                    <input class="form-control col-4" type="text" name="EmployeeName" value="@Html.Raw(Model.employee.EmployeeName==null?"":Model.employee.EmployeeName)" id="start-date">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-12 row justify-content-around">
+                            <div class="form-group col row ">
+                                <div class="col">
+                                    <label for="email-id">Phòng ban hiện tại</label>
+                                </div>
+                                <div class="col">
+                                    <input class="form-control col-4" type="text" name="Department" value="@Html.Raw(Model.employee.DepartmentName==null?"":Model.employee.DepartmentName)" id="start-date">
+
+                                </div>
+                            </div>
+                            <div class="form-group row col">
+                                <div class="col">
+                                    <label for="email-id">Phòng ban chuyển tới</label>
+                                </div>
+                                <div class="col">
+                                    <select id="department" name="DepartmentNew" class="form-control" required>
+                                        <option value="0">--.--</option>
+                                        @foreach (var department in ViewBag.Departments)
+                                        {
+                                            <option value="@department.Value" @(department.Selected ? "selected='selected'" : "")>@department.Text</option>
+                                        }
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-12  row justify-content-around">
+                            <div class="form-group col row">
+                                <div class="col">
+                                    <label for="email-id">Vị trí công việc hiện tại</label>
+                                </div>
+                                <div class="col">
+
+                                    <input class="form-control col-4" type="text" name="Jobtitle" value="@Html.Raw(Model.employee.JobtitleName==null?"":Model.employee.JobtitleName)" id="start-date">
+
+                                </div>
+                            </div>
+                            <div class="form-group col row">
+                                <div class="col col-form-label">
+                                    <label for="email-id">Vị trí công việc mới</label>
+                                </div>
+                                <div class="col">
+
+                                    <select id="department" name="JobtitleNew" class="form-control" required>
+                                        <option value="0">--.--</option>
+
+                                        @foreach (var jobtitle in ViewBag.Jobtitles)
+                                        {
+                                            <option value="@jobtitle.Value">@jobtitle.Text</option>
+                                        }
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-12 row justify-content-around">
+                            <div class="form-group col row">
+                                <div class="col col-form-label">
+                                    <label for="email-id">Chức vụ hiện tại</label>
+                                </div>
+                                <div class="col">
+
+                                    <input class="form-control col-4" type="text" name="Position" value="@Html.Raw(Model.employee.PositionName==null?"":Model.employee.PositionName)" id="start-date">
+
+                                </div>
+                            </div>
+                            <div class="form-group col row">
+                                <div class="col col-form-label">
+                                    <label for="email-id">Chức vụ mới</label>
+                                </div>
+                                <div class="col">
+
+                                    <select id="department" name="PositionNew" class="form-control" required>
+                                        <option value="0">--.--</option>
+                                        @foreach (var position in ViewBag.Positions)
+                                        {
+                                            <option value="@position.Value">@position.Text</option>
+                                        }
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group col-sm-12 row justify-content-start">
+                            <label class="col-3" for="start-date">Ngày bắt đầu:</label>
+                            <input class="form-control col-4" type="date" name="StartDate" value="" id="start-date">
+                        </div>
+                        <div class="form-group">
+                            <label for="end-date">Mô tả</label>
+                            <input class="form-control col-auto" type="text" name="Decription" id="decription">
+                        </div>
+                        <button type="button" class="btn btn-primary" id="addEmployeeBtn">Lưu</button>
+                </form>
+
+
+                <div class="table-responsive">
+                    <table class="table table-hover text-nowrap" id="myTable">
+                        <thead>
+                            <tr>
+
+                                <th class="border-top-0">Mã nhân viên</th>
+                                <th class="border-top-0">Phòng ban</th>
+                                <th class="border-top-0">Chức vụ</th>
+                                <th class="border-top-0">Vị trí công việc</th>
+                                <th class="border-top-0">Ngày bắt đầu</th>
+                                <th class="border-top-0">Ngày kết thúc</th>
+                                <th class="border-top-0">Mô tả</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                            @foreach (var item in Model.employeeHistories)
+                            {
+
+
+                                <tr>
+                                    <td>@item.EmployeeId</td>
+                                    <td style="">
+                                        @switch (item.DepartmentNew)
+                                        {
+                                            case 1:
+                                                @:Nhân sự
+                                                break;
+                                            case 2:
+                                                @:Sản phẩm
+                                                break;
+                                            case 3:
+                                                @:Kỹ thuật
+                                                break;
+                                            case 4:
+                                                @:Tài chính
+                                                break;
+                                            case 5:
+                                                @:Hỗ trợ
+                                                break;
+                                            default:
+
+                                                break;
+                                        }
+                                    </td>
+
+                                    <td style="">
+                                        @switch (item.PositionNew)
+                                        {
+                                            case 1:
+                                                @:Thử Việc
+                                                break;
+                                            case 2:
+                                                @:Nhân Viên
+                                                break;
+                                            case 3:
+                                                @:Thời Vụ
+                                                break;
+                                            case 4:
+                                                @:Thực Tập
+                                                break;
+                                            case 5:
+                                                @:Giám đốc
+                                                break;
+                                            case 6:
+                                                @:Trưởng phòng
+                                                break;
+                                            case 7:
+                                                @:Phó phòng
+                                                break;
+                                            default:
+
+                                                break;
+                                        }
+                                    </td>
+                                    <td style="">
+                                        @switch (item.JobtitleNew)
+                                        {
+                                            case 1:
+                                                @:Database Analyst
+                                                break;
+                                            case 2:
+                                                @:AI
+                                                break;
+                                            case 3:
+                                                @:Android
+                                                break;
+                                            case 4:
+                                                @:HR
+                                                break;
+                                            case 5:
+                                                @:BackEnd
+                                                break;
+                                            case 6:
+                                                @:FontEnd
+                                                break;
+                                            case 7:
+                                                @:Điều hành
+                                                break;
+                                            default:
+
+                                                break;
+                                        }
+                                    </td>
+                                    <td>@item.StartDate.ToString("dd/MM/yyyy")</td>
+                                    <td>@item.EndDate.ToString("dd/MM/yyyy")</td>
+                                    <td>@item.Decription</td>
+                                    
+
+                                </tr>
+
+                            }
+
+
+                        </tbody>
+                    </table>
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+</div>
+@section script{
+
+    
+    <script>
+        $(document).ready(function () {
+            $('#addEmployeeBtn').click(function () {
+                var data = $("#addEmployeeForm").serialize(); // Lấy dữ liệu từ form
+                $.ajax({
+                    type: "POST",
+                    url: "/Employee/InsertEmployeeHistory",
+                    data: data,
+                    success: function (data) {
+                        if (data.Success) {
+                            alert(data.Message); // Nếu thành công, hiển thị thông báo.
+                            location.reload();
+                        } else {
+                            alert("Lỗi: " + data.Message); // Nếu thất bại, hiển thị thông báo lỗi.
+                        }
+                    },
+                    error: function () {
+                        alert("Dữ liệu không hợp lệ");
+                    }
+                });
+            });
+        });
+    </script>
+
+}
+

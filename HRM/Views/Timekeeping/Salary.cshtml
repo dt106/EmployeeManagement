@@ -1,0 +1,178 @@
+﻿@{
+    ViewBag.Title = "Bảng Lương";
+}
+@model List<HRM.DTO.Salary>
+
+<div class="page-breadcrumb bg-white">
+    <div class="row align-items-center">
+        <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
+            <h4 class="page-title">Quá trình lương</h4>
+        </div>
+    </div>
+
+    <!-- /.col-lg-12 -->
+</div>
+
+<div class="container-fluid">
+    <!-- ============================================================== -->
+    <!-- Start Page Content -->
+    <!-- ============================================================== -->
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="white-box">
+
+                <div>
+                    <button id="add" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">Tạo bảng lương</button>
+                </div>
+
+                <div class="table-responsive">
+                    <table class="table table-hover text-nowrap" id="myTable">
+                        <thead>
+                            <tr>
+
+                                <th class="border-top-0">Năm</th>
+                                <th class="border-top-0">Tháng</th>
+                                <th class="border-top-0">Mã nhân viên</th>
+                                <th class="border-top-0">Tên nhân viên</th>
+                                <th class="border-top-0">Phòng ban</th>
+                                <th class="border-top-0">Ngày công</th>
+                                <th class="border-top-0">Công cơ bản</th>
+                                <th class="border-top-0">Lương cứng</th>
+                                <th class="border-top-0">Thưởng</th>
+                                <th class="border-top-0">Thực nhận</th>
+                                <th class="border-top-0">Thời gian chỉnh sửa</th>
+                                <th class="border-top-0">Người chỉnh sửa</th>
+                                <th class="border-top-0">Hành động</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td>@item.Year</td>
+                                    <td style="">@item.Month</td>
+                                    <td style="">@item.EmployeeId</td>
+                                    <td style="">@item.EmployeeName</td>
+                                    <td>
+                                        @switch (item.DepartmentId)
+                                        {
+                                            case 1:
+                                                @:Nhân sự
+                                                break;
+                                            case 2:
+                                                @:Sản phẩm
+                                                break;
+                                            case 3:
+                                                @:Kỹ thuật
+                                                break;
+                                            case 4:
+                                                @:Tài chính
+                                                break;
+                                            case 5:
+                                                @:Hỗ trợ
+                                                break;
+                                            default:
+
+                                                break;
+                                        }
+                                    </td>
+                                    <td>@item.DaysWork</td>
+                                    <td>@item.Days</td>
+                                    <td>@item.Money</td>
+                                    <td>@item.Bonus</td>
+                                    <td>@item.RealSalary</td>
+                                    <td>@item.ModifiedTime</td>
+                                    <td>@item.ModifiedBy</td>
+                                    <td class="row">
+                                        <button type="submit" class="btn btn-danger col" onclick="return confirm('Bạn có chắc muốn xoá không?')">Xoá</button>
+                                        <button type="submit" class="btn btn-primary col" onclick="return confirm('Bạn có chắc muốn thay đổi mức lương của nhân viên này ?')">Sửa</button>
+                                    </td>
+
+                                </tr>
+
+                            }
+
+
+                        </tbody>
+                    </table>
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">
+                    Chọn thời gian
+                </h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="addEmployeeForm">
+                    <div>
+
+                        <label>Năm: </label>
+                        <div class="form-group">
+                            <input type="number" class="form-control" id="daylog" name="Year" value="" placeholder="Năm công" required>
+                        </div>
+                    </div>
+                    <div>
+
+                        <label>Tháng: </label>
+                        <div class="form-group">
+                            <input type="number" class="form-control" id="daylog" name="Month" value="" maxlength="2" placeholder="Năm công" required>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+                <button id="btnAdd" type="submit" class="btn btn-primary">Tạo</button>
+            </div>
+        </div>
+    </div>
+</div>
+@section script{
+
+    <script>
+        $(document).ready(function () {
+            $('#add').on('click', function () {
+                $('#exampleModal').modal('show');
+            });
+        });
+    </script>
+    <script>
+        $(document).ready(function () {
+            $('#addEmployeeBtn').click(function () {
+                var data = $("#addEmployeeForm").serialize(); // Lấy dữ liệu từ form
+                $.ajax({
+                    type: "POST",
+                    url: "/Employee/InsertSalaryFix",
+                    data: data,
+                    success: function (data) {
+                        if (data.Success) {
+                            alert(data.Message); // Nếu thành công, hiển thị thông báo.
+                            location.reload();
+                        } else {
+                            alert(data.Message); // Nếu thất bại, hiển thị thông báo lỗi.
+                        }
+                    },
+                    error: function () {
+                        alert("Lỗi kết nối với server.");
+                    }
+                });
+            });
+        });
+    </script>
+
+}
+
+
+

@@ -1,0 +1,1428 @@
+﻿@{
+    ViewBag.Title = "Bảng chấm công";
+}
+
+@model List<HRM.DTO.LogMonth>
+<div class="page-breadcrumb bg-white">
+    <div class="row align-items-center">
+        <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
+            <h4 class="page-title">Bảng trạng thái chấm công</h4>
+        </div>
+        <div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
+            <div class="d-md-flex">
+                <!-- <a href="https://www.wrappixel.com/templates/ampleadmin/" target="_blank"
+                class="btn btn-danger  d-none d-md-block pull-right ms-3 hidden-xs hidden-sm waves-effect waves-light text-white">Upgrade
+                to Pro</a> -->
+            </div>
+        </div>
+    </div>
+    <!-- /.col-lg-12 -->
+</div>
+
+
+<!-- ============================================================== -->
+<!-- End Bread crumb and right sidebar toggle -->
+<!-- ============================================================== -->
+<!-- ============================================================== -->
+<!-- Container fluid  -->
+<!-- ============================================================== -->
+<div class="container-fluid">
+    <!-- ============================================================== -->
+    <!-- Start Page Content -->
+    <!-- ============================================================== -->
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="white-box">
+                <div>
+                    <button id="updatett" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">Cập nhật trạng thái</button>
+                </div>
+                <div>
+                    <button id="addtt" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal2">Tạo bảng trạng thái</button>
+                </div>
+                <div class="table-responsive">
+                    <i class="fa fa-square" style="color:#1abb9c;"> Đủ giờ</i> @*5 *@
+                    <i class="fa fa-square" style="color:#DD0000;">Quên chấm công</i>@*7*@
+                    <i class="fa fa-square" style="color:#FF9900;">Đi muộn</i>@*4*@
+                    <i class="fa fa-square" style="color:#33CCFF;">Về sớm</i>@*4*@
+                    <i class="fa fa-square" style="color:#555555;">Nghỉ Sáng</i>@*2*@
+                    <i class="fa fa-square" style="color:#111111;">Nghỉ Chiều</i>@*3*@
+                    <i class="fa fa-square" style="color:#330066;">Chấm công bù</i>@*8*@
+                    <table class="table table-hover text-nowrap" id="myTable">
+                        <thead>
+                            <tr>
+                                <th class="border-top-0">Năm</th>
+                                <th class="border-top-0">Tháng</th>
+                                <th class="border-top-0">Mã nhân viên</th>
+                                <th class="border-top-0">Phòng ban</th>
+                                <th class="border-top-0">1</th>
+                                <th class="border-top-0">2</th>
+                                <th class="border-top-0">3</th>
+                                <th class="border-top-0">4</th>
+                                <th class="border-top-0">5</th>
+                                <th class="border-top-0">6</th>
+                                <th class="border-top-0">7</th>
+                                <th class="border-top-0">8</th>
+                                <th class="border-top-0">9</th>
+                                <th class="border-top-0">10</th>
+                                <th class="border-top-0">11</th>
+                                <th class="border-top-0">12</th>
+                                <th class="border-top-0">13</th>
+                                <th class="border-top-0">14</th>
+                                <th class="border-top-0">15</th>
+                                <th class="border-top-0">16</th>
+                                <th class="border-top-0">17</th>
+                                <th class="border-top-0">18</th>
+                                <th class="border-top-0">19</th>
+                                <th class="border-top-0">20</th>
+                                <th class="border-top-0">21</th>
+                                <th class="border-top-0">22</th>
+                                <th class="border-top-0">23</th>
+                                <th class="border-top-0">24</th>
+                                <th class="border-top-0">25</th>
+                                <th class="border-top-0">26</th>
+                                <th class="border-top-0">27</th>
+                                <th class="border-top-0">28</th>
+                                <th class="border-top-0">29</th>
+                                <th class="border-top-0">30</th>
+                                <th class="border-top-0">31</th>
+                                <th class="border-top-0">Tổng giờ</th>
+                                <th class="border-top-0">Giờ trừ</th>
+                                <th class="border-top-0">Trạng thái</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td>@item.Year</td>
+                                    <td>@item.Month</td>
+                                    <td>@item.EmployeeName</td>
+                                    <td>@item.DepartmentName</td>
+                                    <td>
+                                        @switch (item.N1)
+                                        {
+                                            case 5:
+                                                @:  <i class="fa fa-square" style="color:#1abb9c;"></i>
+                                                break;
+                                            case 7:
+                                                @:<i class="fa fa-square" style="color:#DD0000;"></i>
+                                                break;
+                                            case 4:
+                                                @:<i class="fa fa-square" style="color: #FF9900;"></i>
+                                                break;
+                                            case 2:
+                                                @: <i class="fa fa-square" style="color: #555555;"></i>
+                                                break;
+                                            case 3:
+                                                @:<i class="fa fa-square" style="color: #111111;"></i>
+                                                break;
+                                            case 8:
+                                                @:<i class="fa fa-square" style="color: #330066;"></i>
+                                                break;
+                                            case 11:
+                                                @:T7
+                                                break;
+                                            case 12:
+                                                @:CN
+                                                break;
+                                            case 13:
+                                                @:<i class="fa fa-square" style="color:#33CCFF;"></i>
+                                                break;
+
+                                            default:
+                                                @:<i class="fa fa-square" style="color: #FFFFFF;"></i>
+                                                break;
+                                        }
+                                    </td>
+
+
+                                    <td>
+                                        @switch (item.N2)
+                                        {
+                                            case 5:
+                                                @:  <i class="fa fa-square" style="color:#1abb9c;"></i>
+                                                break;
+                                            case 7:
+                                                @:<i class="fa fa-square" style="color:#DD0000;"></i>
+                                                break;
+                                            case 4:
+                                                @:<i class="fa fa-square" style="color: #FF9900;"></i>
+                                                break;
+                                            case 2:
+                                                @: <i class="fa fa-square" style="color: #555555;"></i>
+                                                break;
+                                            case 3:
+                                                @:<i class="fa fa-square" style="color: #111111;"></i>
+                                                break;
+                                            case 8:
+                                                @:<i class="fa fa-square" style="color: #330066;"></i>
+                                                break;
+                                            case 11:
+                                                @:"T7"
+                                                break;
+                                            case 12:
+                                                @:"CN"
+                                                break;
+                                            case 13:
+                                                @:<i class="fa fa-square" style="color:#33CCFF;"></i>
+                                                break;
+                                            default:
+                                                @:<i class="fa fa-square" style="color: #FFFFFF;"></i>
+                                                break;
+                                        }
+                                    </td>
+
+
+
+                                    <td>
+                                        @switch (item.N3)
+                                        {
+                                            case 5:
+                                                @:  <i class="fa fa-square" style="color:#1abb9c;"></i>
+                                                break;
+                                            case 7:
+                                                @:<i class="fa fa-square" style="color:#DD0000;"></i>
+                                                break;
+                                            case 4:
+                                                @:<i class="fa fa-square" style="color: #FF9900;"></i>
+                                                break;
+                                            case 2:
+                                                @: <i class="fa fa-square" style="color: #555555;"></i>
+                                                break;
+                                            case 3:
+                                                @:<i class="fa fa-square" style="color: #111111;"></i>
+                                                break;
+                                            case 8:
+                                                @:<i class="fa fa-square" style="color: #330066;"></i>
+                                                break;
+                                            case 11:
+                                                @: T7
+                                                break;
+                                            case 12:
+                                                @: CN
+                                                break;
+                                            case 13:
+                                                @:<i class="fa fa-square" style="color:#33CCFF;"></i>
+                                                break;
+                                            default:
+                                                @:<i class="fa fa-square" style="color: #FFFFFF;"></i>
+                                                break;
+                                        }
+                                    </td>
+
+
+
+                                    <td>
+                                        @switch (item.N4)
+                                        {
+                                            case 5:
+                                                @:  <i class="fa fa-square" style="color:#1abb9c;"></i>
+                                                break;
+                                            case 7:
+                                                @:<i class="fa fa-square" style="color:#DD0000;"></i>
+                                                break;
+                                            case 4:
+                                                @:<i class="fa fa-square" style="color: #FF9900;"></i>
+                                                break;
+                                            case 2:
+                                                @: <i class="fa fa-square" style="color: #555555;"></i>
+                                                break;
+                                            case 3:
+                                                @:<i class="fa fa-square" style="color: #111111;"></i>
+                                                break;
+                                            case 8:
+                                                @:<i class="fa fa-square" style="color: #330066;"></i>
+                                                break;
+                                            case 11:
+                                                @: T7
+                                                break;
+                                            case 12:
+                                                @: CN
+                                                break;
+                                            case 13:
+                                                @:<i class="fa fa-square" style="color:#33CCFF;"></i>
+                                                break;
+                                            default:
+                                                @:<i class="fa fa-square" style="color: #FFFFFF;"></i>
+                                                break;
+                                        }
+                                    </td>
+
+
+
+                                    <td>
+                                        @switch (item.N5)
+                                        {
+                                            case 5:
+                                                @:  <i class="fa fa-square" style="color:#1abb9c;"></i>
+                                                break;
+                                            case 7:
+                                                @:<i class="fa fa-square" style="color:#DD0000;"></i>
+                                                break;
+                                            case 4:
+                                                @:<i class="fa fa-square" style="color: #FF9900;"></i>
+                                                break;
+                                            case 2:
+                                                @: <i class="fa fa-square" style="color: #555555;"></i>
+                                                break;
+                                            case 3:
+                                                @:<i class="fa fa-square" style="color: #111111;"></i>
+                                                break;
+                                            case 8:
+                                                @:<i class="fa fa-square" style="color: #330066;"></i>
+                                                break;
+                                            case 11:
+                                                @: T7
+                                                break;
+                                            case 12:
+                                                @: CN
+                                                break;
+                                            case 13:
+                                                @:<i class="fa fa-square" style="color:#33CCFF;"></i>
+                                                break;
+                                            default:
+                                                @:<i class="fa fa-square" style="color: #FFFFFF;"></i>
+                                                break;
+                                        }
+                                    </td>
+
+
+
+                                    <td>
+                                        @switch (item.N6)
+                                        {
+                                            case 5:
+                                                @:  <i class="fa fa-square" style="color:#1abb9c;"></i>
+                                                break;
+                                            case 7:
+                                                @:<i class="fa fa-square" style="color:#DD0000;"></i>
+                                                break;
+                                            case 4:
+                                                @:<i class="fa fa-square" style="color: #FF9900;"></i>
+                                                break;
+                                            case 2:
+                                                @: <i class="fa fa-square" style="color: #555555;"></i>
+                                                break;
+                                            case 3:
+                                                @:<i class="fa fa-square" style="color: #111111;"></i>
+                                                break;
+                                            case 8:
+                                                @:<i class="fa fa-square" style="color: #330066;"></i>
+                                                break;
+                                            case 11:
+                                                @: T7
+                                                break;
+                                            case 12:
+                                                @: CN
+                                                break;
+                                            case 13:
+                                                @:<i class="fa fa-square" style="color:#33CCFF;"></i>
+                                                break;
+                                            default:
+                                                @:<i class="fa fa-square" style="color: #FFFFFF;"></i>
+                                                break;
+                                        }
+                                    </td>
+
+
+
+                                    <td>
+                                        @switch (item.N7)
+                                        {
+                                            case 5:
+                                                @:  <i class="fa fa-square" style="color:#1abb9c;"></i>
+                                                break;
+                                            case 7:
+                                                @:<i class="fa fa-square" style="color:#DD0000;"></i>
+                                                break;
+                                            case 4:
+                                                @:<i class="fa fa-square" style="color: #FF9900;"></i>
+                                                break;
+                                            case 2:
+                                                @: <i class="fa fa-square" style="color: #555555;"></i>
+                                                break;
+                                            case 3:
+                                                @:<i class="fa fa-square" style="color: #111111;"></i>
+                                                break;
+                                            case 8:
+                                                @:<i class="fa fa-square" style="color: #330066;"></i>
+                                                break;
+                                            case 11:
+                                                @: T7
+                                                break;
+                                            case 12:
+                                                @: CN
+                                                break;
+                                            case 13:
+                                                @:<i class="fa fa-square" style="color:#33CCFF;"></i>
+                                                break;
+                                            default:
+                                                @:<i class="fa fa-square" style="color: #FFFFFF;"></i>
+                                                break;
+                                        }
+                                    </td>
+
+
+                                    <td>
+                                        @switch (item.N8)
+                                        {
+                                            case 5:
+                                                @:  <i class="fa fa-square" style="color:#1abb9c;"></i>
+                                                break;
+                                            case 7:
+                                                @:<i class="fa fa-square" style="color:#DD0000;"></i>
+                                                break;
+                                            case 4:
+                                                @:<i class="fa fa-square" style="color: #FF9900;"></i>
+                                                break;
+                                            case 2:
+                                                @: <i class="fa fa-square" style="color: #555555;"></i>
+                                                break;
+                                            case 3:
+                                                @:<i class="fa fa-square" style="color: #111111;"></i>
+                                                break;
+                                            case 8:
+                                                @:<i class="fa fa-square" style="color: #330066;"></i>
+                                                break;
+                                            case 11:
+                                                @: T7
+                                                break;
+                                            case 12:
+                                                @: CN
+                                                break;
+                                            case 13:
+                                                @:<i class="fa fa-square" style="color:#33CCFF;"></i>
+                                                break;
+                                            default:
+                                                @:<i class="fa fa-square" style="color: #FFFFFF;"></i>
+                                                break;
+                                        }
+                                    </td>
+
+
+                                    <td>
+                                        @switch (item.N9)
+                                        {
+                                            case 5:
+                                                @:  <i class="fa fa-square" style="color:#1abb9c;"></i>
+                                                break;
+                                            case 7:
+                                                @:<i class="fa fa-square" style="color:#DD0000;"></i>
+                                                break;
+                                            case 4:
+                                                @:<i class="fa fa-square" style="color: #FF9900;"></i>
+                                                break;
+                                            case 2:
+                                                @: <i class="fa fa-square" style="color: #555555;"></i>
+                                                break;
+                                            case 3:
+                                                @:<i class="fa fa-square" style="color: #111111;"></i>
+                                                break;
+                                            case 8:
+                                                @:<i class="fa fa-square" style="color: #330066;"></i>
+                                                break;
+                                            case 11:
+                                                @: T7
+                                                break;
+                                            case 12:
+                                                @: CN
+                                                break;
+                                            case 13:
+                                                @:<i class="fa fa-square" style="color:#33CCFF;"></i>
+                                                break;
+                                            default:
+                                                @:<i class="fa fa-square" style="color: #FFFFFF;"></i>
+                                                break;
+                                        }
+                                    </td>
+
+
+                                    <td>
+                                        @switch (item.N10)
+                                        {
+                                            case 5:
+                                                @:  <i class="fa fa-square" style="color:#1abb9c;"></i>
+                                                break;
+                                            case 7:
+                                                @:<i class="fa fa-square" style="color:#DD0000;"></i>
+                                                break;
+                                            case 4:
+                                                @:<i class="fa fa-square" style="color: #FF9900;"></i>
+                                                break;
+                                            case 2:
+                                                @: <i class="fa fa-square" style="color: #555555;"></i>
+                                                break;
+                                            case 3:
+                                                @:<i class="fa fa-square" style="color: #111111;"></i>
+                                                break;
+                                            case 8:
+                                                @:<i class="fa fa-square" style="color: #330066;"></i>
+                                                break;
+                                            case 11:
+                                                @: T7
+                                                break;
+                                            case 12:
+                                                @: CN
+                                                break;
+                                            case 13:
+                                                @:<i class="fa fa-square" style="color:#33CCFF;"></i>
+                                                break;
+                                            default:
+                                                @:<i class="fa fa-square" style="color: #FFFFFF;"></i>
+                                                break;
+                                        }
+                                    </td>
+
+
+                                    <td>
+                                        @switch (item.N11)
+                                        {
+                                            case 5:
+                                                @:  <i class="fa fa-square" style="color:#1abb9c;"></i>
+                                                break;
+                                            case 7:
+                                                @:<i class="fa fa-square" style="color:#DD0000;"></i>
+                                                break;
+                                            case 4:
+                                                @:<i class="fa fa-square" style="color: #FF9900;"></i>
+                                                break;
+                                            case 2:
+                                                @: <i class="fa fa-square" style="color: #555555;"></i>
+                                                break;
+                                            case 3:
+                                                @:<i class="fa fa-square" style="color: #111111;"></i>
+                                                break;
+                                            case 8:
+                                                @:<i class="fa fa-square" style="color: #330066;"></i>
+                                                break;
+                                            case 11:
+                                                @: T7
+                                                break;
+                                            case 12:
+                                                @: CN
+                                                break;
+                                            case 13:
+                                                @:<i class="fa fa-square" style="color:#33CCFF;"></i>
+                                                break;
+                                            default:
+                                                @:<i class="fa fa-square" style="color: #FFFFFF;"></i>
+                                                break;
+                                        }
+                                    </td>
+
+
+                                    <td>
+                                        @switch (item.N12)
+                                        {
+                                            case 5:
+                                                @:  <i class="fa fa-square" style="color:#1abb9c;"></i>
+                                                break;
+                                            case 7:
+                                                @:<i class="fa fa-square" style="color:#DD0000;"></i>
+                                                break;
+                                            case 4:
+                                                @:<i class="fa fa-square" style="color: #FF9900;"></i>
+                                                break;
+                                            case 2:
+                                                @: <i class="fa fa-square" style="color: #555555;"></i>
+                                                break;
+                                            case 3:
+                                                @:<i class="fa fa-square" style="color: #111111;"></i>
+                                                break;
+                                            case 8:
+                                                @:<i class="fa fa-square" style="color: #330066;"></i>
+                                                break;
+                                            case 11:
+                                                @: T7
+                                                break;
+                                            case 12:
+                                                @: CN
+                                                break;
+                                            case 13:
+                                                @:<i class="fa fa-square" style="color:#33CCFF;"></i>
+                                                break;
+                                            default:
+                                                @:<i class="fa fa-square" style="color: #FFFFFF;"></i>
+                                                break;
+                                        }
+                                    </td>
+
+
+                                    <td>
+                                        @switch (item.N13)
+                                        {
+                                            case 5:
+                                                @:  <i class="fa fa-square" style="color:#1abb9c;"></i>
+                                                break;
+                                            case 7:
+                                                @:<i class="fa fa-square" style="color:#DD0000;"></i>
+                                                break;
+                                            case 4:
+                                                @:<i class="fa fa-square" style="color: #FF9900;"></i>
+                                                break;
+                                            case 2:
+                                                @: <i class="fa fa-square" style="color: #555555;"></i>
+                                                break;
+                                            case 3:
+                                                @:<i class="fa fa-square" style="color: #111111;"></i>
+                                                break;
+                                            case 8:
+                                                @:<i class="fa fa-square" style="color: #330066;"></i>
+                                                break;
+                                            case 11:
+                                                @: T7
+                                                break;
+                                            case 12:
+                                                @: CN
+                                                break;
+                                            case 13:
+                                                @:<i class="fa fa-square" style="color:#33CCFF;"></i>
+                                                break;
+                                            default:
+                                                @:<i class="fa fa-square" style="color: #FFFFFF;"></i>
+                                                break;
+                                        }
+                                    </td>
+
+
+                                    <td>
+                                        @switch (item.N14)
+                                        {
+                                            case 5:
+                                                @:  <i class="fa fa-square" style="color:#1abb9c;"></i>
+                                                break;
+                                            case 7:
+                                                @:<i class="fa fa-square" style="color:#DD0000;"></i>
+                                                break;
+                                            case 4:
+                                                @:<i class="fa fa-square" style="color: #FF9900;"></i>
+                                                break;
+                                            case 2:
+                                                @: <i class="fa fa-square" style="color: #555555;"></i>
+                                                break;
+                                            case 3:
+                                                @:<i class="fa fa-square" style="color: #111111;"></i>
+                                                break;
+                                            case 8:
+                                                @:<i class="fa fa-square" style="color: #330066;"></i>
+                                                break;
+                                            case 11:
+                                                @: T7
+                                                break;
+                                            case 12:
+                                                @: CN
+                                                break;
+                                            case 13:
+                                                @:<i class="fa fa-square" style="color:#33CCFF;"></i>
+                                                break;
+                                            default:
+                                                @:<i class="fa fa-square" style="color: #FFFFFF;"></i>
+                                                break;
+                                        }
+                                    </td>
+
+
+                                    <td>
+                                        @switch (item.N15)
+                                        {
+                                            case 5:
+                                                @:  <i class="fa fa-square" style="color:#1abb9c;"></i>
+                                                break;
+                                            case 7:
+                                                @:<i class="fa fa-square" style="color:#DD0000;"></i>
+                                                break;
+                                            case 4:
+                                                @:<i class="fa fa-square" style="color: #FF9900;"></i>
+                                                break;
+                                            case 2:
+                                                @: <i class="fa fa-square" style="color: #555555;"></i>
+                                                break;
+                                            case 3:
+                                                @:<i class="fa fa-square" style="color: #111111;"></i>
+                                                break;
+                                            case 8:
+                                                @:<i class="fa fa-square" style="color: #330066;"></i>
+                                                break;
+                                            case 11:
+                                                @: T7
+                                                break;
+                                            case 12:
+                                                @: CN
+                                                break;
+                                            case 13:
+                                                @:<i class="fa fa-square" style="color:#33CCFF;"></i>
+                                                break;
+                                            default:
+                                                @:<i class="fa fa-square" style="color: #FFFFFF;"></i>
+                                                break;
+                                        }
+                                    </td>
+
+
+                                    <td>
+                                        @switch (item.N16)
+                                        {
+                                            case 5:
+                                                @:  <i class="fa fa-square" style="color:#1abb9c;"></i>
+                                                break;
+                                            case 7:
+                                                @:<i class="fa fa-square" style="color:#DD0000;"></i>
+                                                break;
+                                            case 4:
+                                                @:<i class="fa fa-square" style="color: #FF9900;"></i>
+                                                break;
+                                            case 2:
+                                                @: <i class="fa fa-square" style="color: #555555;"></i>
+                                                break;
+                                            case 3:
+                                                @:<i class="fa fa-square" style="color: #111111;"></i>
+                                                break;
+                                            case 8:
+                                                @:<i class="fa fa-square" style="color: #330066;"></i>
+                                                break;
+                                            case 11:
+                                                @: T7
+                                                break;
+                                            case 12:
+                                                @: CN
+                                                break;
+                                            case 13:
+                                                @:<i class="fa fa-square" style="color:#33CCFF;"></i>
+                                                break;
+                                            default:
+                                                @:<i class="fa fa-square" style="color: #FFFFFF;"></i>
+                                                break;
+                                        }
+                                    </td>
+
+
+                                    <td>
+                                        @switch (item.N17)
+                                        {
+                                            case 5:
+                                                @:  <i class="fa fa-square" style="color:#1abb9c;"></i>
+                                                break;
+                                            case 7:
+                                                @:<i class="fa fa-square" style="color:#DD0000;"></i>
+                                                break;
+                                            case 4:
+                                                @:<i class="fa fa-square" style="color: #FF9900;"></i>
+                                                break;
+                                            case 2:
+                                                @: <i class="fa fa-square" style="color: #555555;"></i>
+                                                break;
+                                            case 3:
+                                                @:<i class="fa fa-square" style="color: #111111;"></i>
+                                                break;
+                                            case 8:
+                                                @:<i class="fa fa-square" style="color: #330066;"></i>
+                                                break;
+                                            case 11:
+                                                @: T7
+                                                break;
+                                            case 12:
+                                                @: CN
+                                                break;
+                                            case 13:
+                                                @:<i class="fa fa-square" style="color:#33CCFF;"></i>
+                                                break;
+                                            default:
+                                                @:<i class="fa fa-square" style="color: #FFFFFF;"></i>
+                                                break;
+                                        }
+                                    </td>
+
+
+                                    <td>
+                                        @switch (item.N18)
+                                        {
+                                            case 5:
+                                                @:  <i class="fa fa-square" style="color:#1abb9c;"></i>
+                                                break;
+                                            case 7:
+                                                @:<i class="fa fa-square" style="color:#DD0000;"></i>
+                                                break;
+                                            case 4:
+                                                @:<i class="fa fa-square" style="color: #FF9900;"></i>
+                                                break;
+                                            case 2:
+                                                @: <i class="fa fa-square" style="color: #555555;"></i>
+                                                break;
+                                            case 3:
+                                                @:<i class="fa fa-square" style="color: #111111;"></i>
+                                                break;
+                                            case 8:
+                                                @:<i class="fa fa-square" style="color: #330066;"></i>
+                                                break;
+                                            case 11:
+                                                @: T7
+                                                break;
+                                            case 12:
+                                                @: CN
+                                                break;
+                                            case 13:
+                                                @:<i class="fa fa-square" style="color:#33CCFF;"></i>
+                                                break;
+                                            default:
+                                                @:<i class="fa fa-square" style="color: #FFFFFF;"></i>
+                                                break;
+                                        }
+                                    </td>
+
+
+                                    <td>
+                                        @switch (item.N19)
+                                        {
+                                            case 5:
+                                                @:  <i class="fa fa-square" style="color:#1abb9c;"></i>
+                                                break;
+                                            case 7:
+                                                @:<i class="fa fa-square" style="color:#DD0000;"></i>
+                                                break;
+                                            case 4:
+                                                @:<i class="fa fa-square" style="color: #FF9900;"></i>
+                                                break;
+                                            case 2:
+                                                @: <i class="fa fa-square" style="color: #555555;"></i>
+                                                break;
+                                            case 3:
+                                                @:<i class="fa fa-square" style="color: #111111;"></i>
+                                                break;
+                                            case 8:
+                                                @:<i class="fa fa-square" style="color: #330066;"></i>
+                                                break;
+                                            case 11:
+                                                @: T7
+                                                break;
+                                            case 12:
+                                                @: CN
+                                                break;
+                                            case 13:
+                                                @:<i class="fa fa-square" style="color:#33CCFF;"></i>
+                                                break;
+                                            default:
+                                                @:<i class="fa fa-square" style="color: #FFFFFF;"></i>
+                                                break;
+                                        }
+                                    </td>
+
+
+                                    <td>
+                                        @switch (item.N20)
+                                        {
+                                            case 5:
+                                                @:  <i class="fa fa-square" style="color:#1abb9c;"></i>
+                                                break;
+                                            case 7:
+                                                @:<i class="fa fa-square" style="color:#DD0000;"></i>
+                                                break;
+                                            case 4:
+                                                @:<i class="fa fa-square" style="color: #FF9900;"></i>
+                                                break;
+                                            case 2:
+                                                @: <i class="fa fa-square" style="color: #555555;"></i>
+                                                break;
+                                            case 3:
+                                                @:<i class="fa fa-square" style="color: #111111;"></i>
+                                                break;
+                                            case 8:
+                                                @:<i class="fa fa-square" style="color: #330066;"></i>
+                                                break;
+                                            case 11:
+                                                @: T7
+                                                break;
+                                            case 12:
+                                                @: CN
+                                                break;
+                                            case 13:
+                                                @:<i class="fa fa-square" style="color:#33CCFF;"></i>
+                                                break;
+                                            default:
+                                                @:<i class="fa fa-square" style="color: #FFFFFF;"></i>
+                                                break;
+                                        }
+                                    </td>
+
+
+                                    <td>
+                                        @switch (item.N21)
+                                        {
+                                            case 5:
+                                                @:  <i class="fa fa-square" style="color:#1abb9c;"></i>
+                                                break;
+                                            case 7:
+                                                @:<i class="fa fa-square" style="color:#DD0000;"></i>
+                                                break;
+                                            case 4:
+                                                @:<i class="fa fa-square" style="color: #FF9900;"></i>
+                                                break;
+                                            case 2:
+                                                @: <i class="fa fa-square" style="color: #555555;"></i>
+                                                break;
+                                            case 3:
+                                                @:<i class="fa fa-square" style="color: #111111;"></i>
+                                                break;
+                                            case 8:
+                                                @:<i class="fa fa-square" style="color: #330066;"></i>
+                                                break;
+                                            case 11:
+                                                @: T7
+                                                break;
+                                            case 12:
+                                                @: CN
+                                                break;
+                                            case 13:
+                                                @:<i class="fa fa-square" style="color:#33CCFF;"></i>
+                                                break;
+                                            default:
+                                                @:<i class="fa fa-square" style="color: #FFFFFF;"></i>
+                                                break;
+                                        }
+                                    </td>
+
+
+                                    <td>
+                                        @switch (item.N22)
+                                        {
+                                            case 5:
+                                                @:  <i class="fa fa-square" style="color:#1abb9c;"></i>
+                                                break;
+                                            case 7:
+                                                @:<i class="fa fa-square" style="color:#DD0000;"></i>
+                                                break;
+                                            case 4:
+                                                @:<i class="fa fa-square" style="color: #FF9900;"></i>
+                                                break;
+                                            case 2:
+                                                @: <i class="fa fa-square" style="color: #555555;"></i>
+                                                break;
+                                            case 3:
+                                                @:<i class="fa fa-square" style="color: #111111;"></i>
+                                                break;
+                                            case 8:
+                                                @:<i class="fa fa-square" style="color: #330066;"></i>
+                                                break;
+                                            case 11:
+                                                @: T7
+                                                break;
+                                            case 12:
+                                                @: CN
+                                                break;
+                                            case 13:
+                                                @:<i class="fa fa-square" style="color:#33CCFF;"></i>
+                                                break;
+                                            default:
+                                                @:<i class="fa fa-square" style="color: #FFFFFF;"></i>
+                                                break;
+                                        }
+                                    </td>
+
+
+                                    <td>
+                                        @switch (item.N23)
+                                        {
+                                            case 5:
+                                                @:  <i class="fa fa-square" style="color:#1abb9c;"></i>
+                                                break;
+                                            case 7:
+                                                @:<i class="fa fa-square" style="color:#DD0000;"></i>
+                                                break;
+                                            case 4:
+                                                @:<i class="fa fa-square" style="color: #FF9900;"></i>
+                                                break;
+                                            case 2:
+                                                @: <i class="fa fa-square" style="color: #555555;"></i>
+                                                break;
+                                            case 3:
+                                                @:<i class="fa fa-square" style="color: #111111;"></i>
+                                                break;
+                                            case 8:
+                                                @:<i class="fa fa-square" style="color: #330066;"></i>
+                                                break;
+                                            case 11:
+                                                @: T7
+                                                break;
+                                            case 12:
+                                                @: CN
+                                                break;
+                                            case 13:
+                                                @:<i class="fa fa-square" style="color:#33CCFF;"></i>
+                                                break;
+                                            default:
+                                                @:<i class="fa fa-square" style="color: #FFFFFF;"></i>
+                                                break;
+                                        }
+                                    </td>
+
+
+                                    <td>
+                                        @switch (item.N24)
+                                        {
+                                            case 5:
+                                                @:  <i class="fa fa-square" style="color:#1abb9c;"></i>
+                                                break;
+                                            case 7:
+                                                @:<i class="fa fa-square" style="color:#DD0000;"></i>
+                                                break;
+                                            case 4:
+                                                @:<i class="fa fa-square" style="color: #FF9900;"></i>
+                                                break;
+                                            case 2:
+                                                @: <i class="fa fa-square" style="color: #555555;"></i>
+                                                break;
+                                            case 3:
+                                                @:<i class="fa fa-square" style="color: #111111;"></i>
+                                                break;
+                                            case 8:
+                                                @:<i class="fa fa-square" style="color: #330066;"></i>
+                                                break;
+                                            case 11:
+                                                @: T7
+                                                break;
+                                            case 12:
+                                                @: CN
+                                                break;
+                                            case 13:
+                                                @:<i class="fa fa-square" style="color:#33CCFF;"></i>
+                                                break;
+                                            default:
+                                                @:<i class="fa fa-square" style="color: #FFFFFF;"></i>
+                                                break;
+                                        }
+                                    </td>
+
+
+                                    <td>
+                                        @switch (item.N25)
+                                        {
+                                            case 5:
+                                                @:  <i class="fa fa-square" style="color:#1abb9c;"></i>
+                                                break;
+                                            case 7:
+                                                @:<i class="fa fa-square" style="color:#DD0000;"></i>
+                                                break;
+                                            case 4:
+                                                @:<i class="fa fa-square" style="color: #FF9900;"></i>
+                                                break;
+                                            case 2:
+                                                @: <i class="fa fa-square" style="color: #555555;"></i>
+                                                break;
+                                            case 3:
+                                                @:<i class="fa fa-square" style="color: #111111;"></i>
+                                                break;
+                                            case 8:
+                                                @:<i class="fa fa-square" style="color: #330066;"></i>
+                                                break;
+                                            case 11:
+                                                @: T7
+                                                break;
+                                            case 12:
+                                                @: CN
+                                                break;
+                                            case 13:
+                                                @:<i class="fa fa-square" style="color:#33CCFF;"></i>
+                                                break;
+                                            default:
+                                                @:<i class="fa fa-square" style="color: #FFFFFF;"></i>
+                                                break;
+                                        }
+                                    </td>
+
+
+                                    <td>
+                                        @switch (item.N26)
+                                        {
+                                            case 5:
+                                                @:  <i class="fa fa-square" style="color:#1abb9c;"></i>
+                                                break;
+                                            case 7:
+                                                @:<i class="fa fa-square" style="color:#DD0000;"></i>
+                                                break;
+                                            case 4:
+                                                @:<i class="fa fa-square" style="color: #FF9900;"></i>
+                                                break;
+                                            case 2:
+                                                @: <i class="fa fa-square" style="color: #555555;"></i>
+                                                break;
+                                            case 3:
+                                                @:<i class="fa fa-square" style="color: #111111;"></i>
+                                                break;
+                                            case 8:
+                                                @:<i class="fa fa-square" style="color: #330066;"></i>
+                                                break;
+                                            case 11:
+                                                @: T7
+                                                break;
+                                            case 12:
+                                                @: CN
+                                                break;
+                                            case 13:
+                                                @:<i class="fa fa-square" style="color:#33CCFF;"></i>
+                                                break;
+                                            default:
+                                                @:<i class="fa fa-square" style="color: #FFFFFF;"></i>
+                                                break;
+                                        }
+                                    </td>
+
+
+                                    <td>
+                                        @switch (item.N27)
+                                        {
+                                            case 5:
+                                                @:  <i class="fa fa-square" style="color:#1abb9c;"></i>
+                                                break;
+                                            case 7:
+                                                @:<i class="fa fa-square" style="color:#DD0000;"></i>
+                                                break;
+                                            case 4:
+                                                @:<i class="fa fa-square" style="color: #FF9900;"></i>
+                                                break;
+                                            case 2:
+                                                @: <i class="fa fa-square" style="color: #555555;"></i>
+                                                break;
+                                            case 3:
+                                                @:<i class="fa fa-square" style="color: #111111;"></i>
+                                                break;
+                                            case 8:
+                                                @:<i class="fa fa-square" style="color: #330066;"></i>
+                                                break;
+                                            case 11:
+                                                @: T7
+                                                break;
+                                            case 12:
+                                                @: CN
+                                                break;
+                                            case 13:
+                                                @:<i class="fa fa-square" style="color:#33CCFF;"></i>
+                                                break;
+                                            default:
+                                                @:<i class="fa fa-square" style="color: #FFFFFF;"></i>
+                                                break;
+                                        }
+                                    </td>
+
+
+                                    <td>
+                                        @switch (item.N28)
+                                        {
+                                            case 5:
+                                                @:  <i class="fa fa-square" style="color:#1abb9c;"></i>
+                                                break;
+                                            case 7:
+                                                @:<i class="fa fa-square" style="color:#DD0000;"></i>
+                                                break;
+                                            case 4:
+                                                @:<i class="fa fa-square" style="color: #FF9900;"></i>
+                                                break;
+                                            case 2:
+                                                @: <i class="fa fa-square" style="color: #555555;"></i>
+                                                break;
+                                            case 3:
+                                                @:<i class="fa fa-square" style="color: #111111;"></i>
+                                                break;
+                                            case 8:
+                                                @:<i class="fa fa-square" style="color: #330066;"></i>
+                                                break;
+                                            case 11:
+                                                @: T7
+                                                break;
+                                            case 12:
+                                                @: CN
+                                                break;
+                                            case 13:
+                                                @:<i class="fa fa-square" style="color:#33CCFF;"></i>
+                                                break;
+                                            default:
+                                                @:<i class="fa fa-square" style="color: #FFFFFF;"></i>
+                                                break;
+                                        }
+                                    </td>
+
+
+                                    <td>
+                                        @switch (item.N29)
+                                        {
+                                            case 5:
+                                                @:  <i class="fa fa-square" style="color:#1abb9c;"></i>
+                                                break;
+                                            case 7:
+                                                @:<i class="fa fa-square" style="color:#DD0000;"></i>
+                                                break;
+                                            case 4:
+                                                @:<i class="fa fa-square" style="color: #FF9900;"></i>
+                                                break;
+                                            case 2:
+                                                @: <i class="fa fa-square" style="color: #555555;"></i>
+                                                break;
+                                            case 3:
+                                                @:<i class="fa fa-square" style="color: #111111;"></i>
+                                                break;
+                                            case 8:
+                                                @:<i class="fa fa-square" style="color: #330066;"></i>
+                                                break;
+                                            case 11:
+                                                @: T7
+                                                break;
+                                            case 12:
+                                                @: CN
+                                                break;
+                                            case 13:
+                                                @:<i class="fa fa-square" style="color:#33CCFF;"></i>
+                                                break;
+                                            default:
+                                                @:<i class="fa fa-square" style="color: #FFFFFF;"></i>
+                                                break;
+                                        }
+                                    </td>
+
+
+                                    <td>
+                                        @switch (item.N30)
+                                        {
+                                            case 5:
+                                                @:  <i class="fa fa-square" style="color:#1abb9c;"></i>
+                                                break;
+                                            case 7:
+                                                @:<i class="fa fa-square" style="color:#DD0000;"></i>
+                                                break;
+                                            case 4:
+                                                @:<i class="fa fa-square" style="color: #FF9900;"></i>
+                                                break;
+                                            case 2:
+                                                @: <i class="fa fa-square" style="color: #555555;"></i>
+                                                break;
+                                            case 3:
+                                                @:<i class="fa fa-square" style="color: #111111;"></i>
+                                                break;
+                                            case 8:
+                                                @:<i class="fa fa-square" style="color: #330066;"></i>
+                                                break;
+                                            case 11:
+                                                @: T7
+                                                break;
+                                            case 12:
+                                                @: CN
+                                                break;
+                                            case 13:
+                                                @:<i class="fa fa-square" style="color:#33CCFF;"></i>
+                                                break;
+                                            default:
+                                                @:<i class="fa fa-square" style="color: #FFFFFF;"></i>
+                                                break;
+                                        }
+                                    </td>
+
+
+                                    <td>
+                                        @switch (item.N31)
+                                        {
+                                            case 5:
+                                                @:  <i class="fa fa-square" style="color:#1abb9c;"></i>
+                                                break;
+                                            case 7:
+                                                @:<i class="fa fa-square" style="color:#DD0000;"></i>
+                                                break;
+                                            case 4:
+                                                @:<i class="fa fa-square" style="color: #FF9900;"></i>
+                                                break;
+                                            case 2:
+                                                @: <i class="fa fa-square" style="color: #555555;"></i>
+                                                break;
+                                            case 3:
+                                                @:<i class="fa fa-square" style="color: #111111;"></i>
+                                                break;
+                                            case 8:
+                                                @:<i class="fa fa-square" style="color: #330066;"></i>
+                                                break;
+                                            case 11:
+                                                @: T7
+                                                break;
+                                            case 12:
+                                                @: CN
+                                                break;
+                                            case 13:
+                                                @:<i class="fa fa-square" style="color:#33CCFF;"></i>
+                                                break;
+                                            default:
+                                                @:<i class="fa fa-square" style="color: #FFFFFF;"></i>
+                                                break;
+                                        }
+                                    </td>
+
+
+                                    <td>@item.HourWork</td>
+
+
+                                    <td>@item.HourOff</td>
+
+
+                                    <td>@item.Status</td>
+
+
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- ============================================================== -->
+    <!-- End PAge Content -->
+    <!-- ============================================================== -->
+    <!-- ============================================================== -->
+    <!-- Right sidebar -->
+    <!-- ============================================================== -->
+    <!-- .right-sidebar -->
+    <!-- ============================================================== -->
+    <!-- End Right sidebar -->
+    <!-- ============================================================== -->
+</div>
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">
+                    Ngày cập nhật
+                </h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="addEmployeeForm">
+
+
+                    <div class="form-group">
+
+                        <input type="date" class="form-control" id="daylog" name="LogDate" value="" placeholder="Ngày chấm công" required>
+                    </div>
+
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+                <button id="btnUpdate" type="submit" class="btn btn-primary">Cập nhật</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="exampleModal2" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">
+                    Chọn thời gian
+                </h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="addEmployeeForm2">
+                    <div>
+
+                        <label>Năm: </label>
+                        <div class="form-group">
+                            <input type="number" class="form-control" id="daylog" name="Year" value="" placeholder="Năm công" required>
+                        </div>
+                    </div>
+                    <div>
+
+                        <label>Tháng: </label>
+                        <div class="form-group">
+                            <input type="number" class="form-control" id="daylog" name="Month" value="" maxlength="2" placeholder="Năm công" required>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+                <button id="btnAdd" type="submit" class="btn btn-primary">Thêm mới</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- ============================================================== -->
+<!-- End PAge Content -->
+<!-- ============================================================== -->
+<!-- ============================================================== -->
+<!-- Right sidebar -->
+<!-- ============================================================== -->
+<!-- .right-sidebar -->
+<!-- ============================================================== -->
+<!-- End Right sidebar -->
+<!-- ============================================================== -->
+
+
+@section script{
+
+    <script>
+        $(document).ready(function () {
+            $('#updatett').on('click', function () {
+                $('#exampleModal').modal('show');
+            });
+        });
+    </script>
+    <script>
+        $(document).ready(function () {
+            $('#addtt').on('click', function () {
+                $('#exampleModal2').modal('show');
+            });
+        });
+        $(document).ready(function () {
+            $('#btnAdd').click(function (event) {
+                event.preventDefault();
+                var data = $("#addEmployeeForm2").serialize(); // Lấy dữ liệu từ form
+                $.ajax({
+                    type: "POST",
+                    url: "/Timekeeping/LogMonthInsert",
+                    data: data,
+                    success: function (data) {
+                        if (data.Success) {
+                            alert(data.Message); // Nếu thành công, hiển thị thông báo.
+                            $('#exampleModal2').modal('hide'); // Đóng modal
+                            location.reload(); // Tải lại trang
+                            /*                            location.reload();*/
+                        } else {
+                            alert(data.Message); // Nếu thất bại, hiển thị thông báo lỗi.
+                        }
+                    },
+                    error: function () {
+                        alert("Lỗi kết nối với server.");
+                    }
+                });
+            });
+
+        });
+    </script>
+    <script>
+        $(document).ready(function () {
+            $('#btnUpdate').click(function () {
+                var data = $("#addEmployeeForm").serialize(); // Lấy dữ liệu từ form
+                $.ajax({
+                    type: "POST",
+                    url: "/Timekeeping/UpdateStatus",
+                    data: data,
+                    success: function () {
+                        // Xử lý khi gửi thành công
+                        console.log("Đã cập nhật!");
+                        $('#exampleModal').modal('hide'); // Đóng modal
+                        location.reload(); // Tải lại trang
+                    },
+                    error: function () {
+                        // Xử lý khi gửi lỗi
+                        console.log("Cập nhật thất bại!");
+                    }
+                });
+            });
+        });
+    </script>
+}
+
+
+
+
